@@ -1,1 +1,1 @@
-stiffv2
+Stiff is a discord skin
