@@ -1,0 +1,17 @@
+{
+  "name": "stiff",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "ThuverX",
+  "description": "Stiff",
+  "css": [
+    "style.css"
+  ],
+  "dependencies": {
+    "color-sort": "0.0.1",
+    "less": "^2.7.3",
+    "react-color": "^2.13.8"
+  },
+  "devDependencies": {},
+  "license": "ISC"
+}
