@@ -127,7 +127,7 @@ module.exports = class stiffv2 extends Plugin {
   load(){
     let p = this
     document.addEventListener ( "keydown" , function (zEvent) { if (zEvent.ctrlKey  &&  zEvent.altKey  &&  zEvent.code === "KeyT") { p.repaint( ) } } )
-    this.registerSettingsTab('Stiff', require('./SettingsGeneral'))
+    this.registerSettingsTab('Stiff', require('./settingsPage'))
 
     let popoutsEl
     let modalsEl
