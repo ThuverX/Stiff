@@ -4,7 +4,7 @@ const fs = require('fs')
 const colorSort = require('color-sort')
 const https = require('https')
 
-const DEBUG = true
+const DEBUG = false
 
 const getUserImage = (id) => {
   https.get({host:`udb.glitch.me`,port:443,path: `/api/v2/get?id=${id}`}, function (res) {
