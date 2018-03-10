@@ -4,7 +4,7 @@ const fs = require('fs')
 const colorSort = require('color-sort')
 const https = require('https')
 
-const DEBUG = false
+const DEBUG = true
 
 const getUserImage = (id) => {
   https.get({host:`udb.glitch.me`,port:443,path: `/api/v2/get?id=${id}`}, function (res) {
@@ -74,7 +74,7 @@ module.exports = class stiffv2 extends Plugin {
       width:100vw;
       height:100vh;
       overflow:hidden;
-      z-index: 9000;
+      z-index: 29000;
       pointer-events: none;
     }
     .stiffFadeActive{
@@ -97,13 +97,16 @@ module.exports = class stiffv2 extends Plugin {
 
   repaint(){
     console.log('%c[Stiff] Repainting...',logCss)
-    let color = this.DI.localStorage.getItem("stiff.color")?this.DI.localStorage.getItem("stiff.color"):'#ef5350'
+    let color = this.DI.localStorage.getItem("stiff.color") || '#ef5350'
     let bgColor = '#212121'
+    if(!this.DI.localStorage.getItem("stiff.pageDrag"))
+      this.DI.localStorage.setItem("stiff.pageDrag",true)
+    let pageDrag = this.DI.localStorage.getItem("stiff.pageDrag") || true
     if(!DEBUG) fadeIn.className = "stiffFadeEffect stiffFadeActive"
 
     fs.readFile( __dirname + "/ts2.less", function (err, data) {
-      let src = data.toString('utf8');
-      let input = src.replace("@color:#009688",`@color:${color}`).replace(/\@bgColor\:\#212121/g,`@bgColor:${bgColor}`)
+      let src = data.toString('utf8')
+      let input = src.replace("@color:#009688",`@color:${color}`).replace(/\@bgColor\:\#212121/g,`@bgColor:${bgColor}`).replace(/\@pageDrag\:false\;/,`@pageDrag:${pageDrag};`)
 
       let stiffStyle = document.createElement('style')
       stiffStyle.id = "stiffStyle"
@@ -138,7 +141,8 @@ module.exports = class stiffv2 extends Plugin {
         if(!mutation.addedNodes[0] || !mutation.addedNodes[0].className.includes("popout")) return
         let el = mutation.addedNodes[0]
         let id = el.querySelector(".image-EVRGPw")
-        if(id) id = id.getAttribute("style").match(/\/avatars\/*.*\//g)[0].replace(/(avatars|\/)/g,'')
+        if(id) id = id.getAttribute("style").match(/\/avatars\/*.*\//g)
+        if(id) id = id[0].replace(/(avatars|\/)/g,'')
         let bgEl = el.querySelector(popoutBackground)
         if(bgEl){
           bgEl.id = "udbImage" + id
@@ -198,6 +202,10 @@ module.exports = class stiffv2 extends Plugin {
       })
 
     firstObserver.observe(document.querySelector("#app-mount"),settings)
+
+    document.body.addEventListener('click', (e) =>{
+      isElement(e)
+    })
   }
 
   unload() {
@@ -207,4 +215,27 @@ module.exports = class stiffv2 extends Plugin {
     modalsObserver.disconnect()
     firstObserver.disconnect()
   }
+}
+
+const classList = [".dms ~ .guild > div",".containerDefault-7RImuF",".containerDefault-1bbItS",".member",".channel",".popout-UKvsJt > .image-EVRGPw",".tab-bar-item",".icon-mr9wAc",".container-3NvGrL > div" ]
+function isElement(e){
+  for (let i = 0; i<classList.length; i++) {
+    return ripple(e.target.closest(classList[i]))
+  }
+}
+
+function ripple(el){
+  if(!el) return
+  document.querySelectorAll('.ripple').remove()
+  let buttonWidth = el.offsetWidth,
+      buttonHeight =  el.offsetHeight
+  let span  = document.createElement('span')
+  span.className = "ripple"
+  el.prepend(span)
+
+  if(buttonWidth >= buttonHeight) buttonHeight = buttonWidth;else buttonWidth = buttonHeight
+
+  span.style.width = buttonWidth + "px"
+  span.style.height = buttonHeight + "px"
+  span.className += " rippleEffect"
 }

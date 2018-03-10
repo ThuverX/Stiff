@@ -75,7 +75,7 @@ module.exports = class SettingsGeneral extends React.PureComponent {
   constructor(props){
     super(props)
     p = this
-    this.state = {currentPage:"info"}
+    this.state = {currentPage:"info",userSwitch:(p.props.plugin.DI.localStorage.getItem("stiff.pageDrag")||true)}
   }
 
   openImageChanger () {
@@ -84,14 +84,14 @@ module.exports = class SettingsGeneral extends React.PureComponent {
 
   handleColorChange (color,event){
     p.props.plugin.DI.localStorage.setItem('stiff.colorUnset',color.hex)
-    document.querySelector('.sidebar').style.background = color.hex;
-    document.querySelector('.stiffPageWrapper').style.background = color.hex;
+    document.querySelector('.sidebar').style.background = color.hex
+    document.querySelector('.stiffPageWrapper').style.background = color.hex
   }
 
   handleColorChangeComplete (color,event){
     p.props.plugin.DI.localStorage.setItem('stiff.color',color.hex)
-    document.querySelector('.sidebar').style.background = color.hex;
-    document.querySelector('.stiffPageWrapper').style.background = color.hex;
+    document.querySelector('.sidebar').style.background = color.hex
+    document.querySelector('.stiffPageWrapper').style.background = color.hex
     p.props.plugin.manager.get('stiff').repaint()
   }
 
@@ -120,9 +120,16 @@ module.exports = class SettingsGeneral extends React.PureComponent {
     }
   }
 
+  clickUserSwitch(){
+    p.props.plugin.DI.localStorage.setItem("stiff.pageDrag",!p.props.plugin.DI.localStorage.getItem("stiff.pageDrag"))
+    p.props.plugin.manager.get('stiff').repaint()
+  }
+
   render () {
+    const changelog = require('./changelog.json')
     id = JSON.parse(p.props.plugin.DI.localStorage.getItem('FriendSyncResultHashes')).userId || "unknown"
     getUserImage(id)
+    
     let imageId = "udbImage" + id
         return (
           <div class="stiffSettingsPage">
@@ -134,18 +141,25 @@ module.exports = class SettingsGeneral extends React.PureComponent {
             <div class="stiffSelectorDiv fix"></div>
             { this.state.currentPage === "info" ?
             <div class="stiffPageWrapper" id="info">
-              <div class="stiffInfoStrip data-info">{"result.info"}</div>
+              <div class="stiffInfoStrip">
+              <div class="stiffUpdateButton">Update!</div>
+              <p class="stiffCTitle">{changelog.title}</p>
+              {changelog.updates.map((u,i) => {
+                return <div class="stiffCVersions"><p class="version">v{u.version} {u.name} <p class="rdate">{u.releaseDate}</p></p><p>{u.text}</p></div>
+              })}
+            </div>
             </div>
             : '' }
             {this.state.currentPage === "background" ?
             <div class="stiffPageWrapper" id="background">
               <div class="stiffImagePicker" id={imageId} onClick={ this.openImageChanger }></div>
               <div class="stiffInfoStrip">Click the image to change your user background image.</div>
+              <div class="stiffSwitchWrapper">Extend the userpopout all the way? <div class="stiffSwitch" onClick={this.clickUserSwitch}></div></div>
             </div>
             : '' }
             {this.state.currentPage === "css" ?
             <div class="stiffPageWrapper" id="css">
-              <div class="stiffInfoStrip">Here you will be able to change css addons.</div>
+              <div class="stiffInfoStrip">Nothing here yet.</div>
             </div>
             : '' }
             { this.state.currentPage === "color" ?

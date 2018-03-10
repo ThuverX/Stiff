@@ -1,7 +1,7 @@
 // out: ts2.css
 
 #friends,.app .layers .layer,.app .layers .layer>[class*='container-'],.app .layers,.content-region,.guilds-wrapper,.sidebar-region,.ui-standard-sidebar-view,[class*='activityFeed-'],[class*='channels-'],[class*='titleBar-'],#friends .friends-table,.channel-members,.channel-members-loading,.chat .content,.chat form,.chat,
-.content .flex-spacer,.messages-wrapper,.typing-3eiiL_,[class*='channels-'] [class*="container-"],[class*='headerBar-'],[class*='titleWrapper-'] [class*='title-']
+.content .flex-spacer,.messages-wrapper,[class*='channels-'] [class*="container-"],[class*='headerBar-'],[class*='titleWrapper-'] [class*='title-']
 , .popout-open .header-1tSljs, .popout-open .header-1tSljs > *{background: transparent !important;box-shadow: none !important;border:none !important;}
 .messages-wrapper + form ,.flexChild-1KGW5q *{box-shadow: none !important;}
 
@@ -15,6 +15,9 @@
 
 .theme-dark .layer-kosS71,{
 	background:@bgColor;
+}
+.channelTextAreaEnabled-c05Zpy{
+	position: relative !important;
 }
 #app-mount:after{
 	content:'BETA';
@@ -159,17 +162,20 @@ div[class*='titleBar-']{
 		padding-top:4px !important;
 	}
 }
-.connectedAccounts-3xeYin{
-	button{
-
-	}
-}
-.messages-popout-wrap{
+.messages-popout-wrap,.private-channel-recipients-invite{
 	border:none !important;
 	.header{
 		border:none !important;
 		background:@color !important;
 		border-radius: 0 !important;
+		.subtitle{
+			color:white !important;
+		}
+		input,input::-webkit-input-placeholder{
+			color:white !important;
+			opacity:1 !important;
+		}
+
 		.mention-filter{
 			margin-top:16px !important;
 		}
@@ -206,11 +212,69 @@ div[class*='titleBar-']{
 			}
 		}
 	}
+	.search-bar-inner{
+		background:@bgColor !important;
+		border-radius: 2px !important;
+		.search-bar-tag{
+			transition: none !important;
+			&:hover{
+				background:white !important;
+				color:black !important;
+				.close{
+					filter:invert(100%)
+				}
+			}
+			background:transparent !important;
+			color:white !important;
+		}
+	}
+	.friend{
+		.checkbox-inner{
+			border:none !important;
+			position: relative;
+			&:after{
+				transition: all;
+				position: absolute;
+				left:-3px;
+				top:-3px;
+				width:18px;
+				height:18px;
+				border:3px solid white;
+				border-radius: 100%;
+				content:'';
+			}
+			span{
+				border:none !important;
+				background:transparent !important;
+				position: relative;
+				&:after{
+					transition: none;
+					margin-left:-1px !important;
+					margin-top:3px !important;
+					transform: translate(-50%,-50%);
+					width:10px !important;
+					height:10px !important;
+					background: white;
+					border-radius: 100%;
+					content:'';
+				}
+			}
+		}
+	}
+	
 	.footer{
 		border:none !important;
 		background:@color !important;
 		border-radius: 0 !important;
 		*{color:white !important}
+		button:not([disabled]):hover{
+			background:white !important;
+			color:black !important;
+		}
+		button{
+			background:@bgColor !important;
+			color:white !important;
+		}
 	}
 	.scroller-wrap{
 		background: @bgColor !important;
@@ -487,8 +551,9 @@ body{
 				position: absolute !important;
 				opacity:0 !important;
 				transition: opacity .2s;
-				float:right !important;
-				left:85% !important;
+				left:unset !important;
+				right:0 !important;
+				width:100px !important;
 				bottom:unset !important;
 				top:0 !important;
 				div{
@@ -1288,6 +1353,7 @@ div[class*="titleWrapper-"],.headerBar-cxbhPD{
 	color:white !important;
 }
 .container-2oOGIt{
+	z-index:9000 !important;
 	background:radial-gradient(#420c1e, #771435) !important;
 	overflow:visible !important;
 	.quote-3NlLs0{
@@ -1387,9 +1453,11 @@ div[class*="titleWrapper-"],.headerBar-cxbhPD{
 	}
 }
 
+
 #app-mount > div > div.modal-2LIEKY > div > div > div{
 	background:transparent !important;
 }
+
 .modal-2LIEKY{
 	z-index:9000;
 	//CSS transitions
@@ -1432,14 +1500,14 @@ div[class*="titleWrapper-"],.headerBar-cxbhPD{
 		.image-EVRGPw:after{
 			position: absolute;
 			left:-100px;
-			top:-100px;
+			top:0px;
 			content:'';
 			background-image: inherit;
 			background-size:cover;
 			background-position: center;
 			filter:blur(20px);
 			width:905px;
-			height:435px;
+			height:275px;
 			opacity:.5;
 			z-index:-1;
 		}
@@ -1688,7 +1756,7 @@ div[class*="titleWrapper-"],.headerBar-cxbhPD{
 					text-align: right;
 					padding-top:6px;
 					padding-bottom:6px;
-					margin-top:113px;
+					margin-top:107px;
 				}
 				.profileBadges-2B6TBS{
 					position: absolute;
@@ -2078,6 +2146,7 @@ svg[name="RichActivity"]{
 .wrapper-2ldvyE{
 	color:white !important;
 }
+
 .popout-bottom{
 	position: absolute !important;
 	top:0 !important;
@@ -2092,9 +2161,6 @@ svg[name="RichActivity"]{
 		width:240px !important;
 		box-shadow:none !important;
 		border-radius: 0 !important;
-		.results-group:before{
-
-		}
 		*{
 			background:transparent !important;
 		}
@@ -2109,7 +2175,12 @@ svg[name="RichActivity"]{
 		}
 	}
 }
-
+.elevationHigh-3lNfp9,.pictureInPictureWindow-3BoWYS{
+	z-index:8000;
+}
+.popout-bottom:not(.no-shadow){
+	top:30px !important;
+}
 .ui-video-center,.ui-video-center div,.ui-video-center span{
 	overflow: visible !important;
 }
@@ -2175,7 +2246,24 @@ svg[name="RichActivity"]{
 		background: #ff1744 !important;
 	}
 	.badge{
-		z-index:7500;
+		z-index:20000 !important;
+		position: absolute !important;
+		bottom:0 !important;
+		right:0 !important;
+	}
+	.guild.guilds-add{
+		background:url(https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_add_white_48px.svg) !important;
+		background-position: center !important;
+		background-size:20px !important;
+		background-repeat: no-repeat !important; 
+		transition:all .2s;
+		&:hover{
+			background-size:30px !important;
+		}
+		span{
+			display:none !important;
+		}
+		border:3px solid white !important;
 	}
 	.guild:before{animation: selectNewGuild .6s ease;}
 	.guild.selected:before{
@@ -2292,7 +2380,12 @@ div[class*="topic"]{
 		font-weight: bold;
 	}
 }
-
+.iconTransition-VhWJ85 ~ .alignCenter-3VxkQP{
+	margin-right:33.5px !important;
+	svg{
+		margin-right:-1px !important;
+	}
+}
 .channels-3g2vYe{
 	.container-3NvGrL{
 		*{

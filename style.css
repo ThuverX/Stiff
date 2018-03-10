@@ -15,55 +15,87 @@
 .info{
 	margin-left:0 !important;
 }
+.stiffSwitchWrapper{
+	color:white;
+	position: relative;
+	border-top:1px solid white;
+	width:100%;
+	padding-top:5px;
+}
+.stiffSwitch{
+	width:50px;
+	height:18px;
+	background:white;
+	position: absolute;
+	right:0;
+	top:5px;
+	transition: all .3s;
+	border-radius: 2px;
+	cursor:pointer;
+}
 
+.stiffSwitch:after{
+	content:'';
+	position: absolute;
+	left:calc(100% - 18px);
+	top:0;
+	width:18px;
+	height:100%;
+	background: black;
+	border-radius: 2px;
+}
+.stiffSwitch.active:after{
+	content:'';
+	position: absolute;
+	left:0;
+	top:0;
+	width:18px;
+	height:100%;
+	background: red;
+	border-radius: 2px;
+}
 .stiffSelectorDiv.fix{
 	width:436px;
+	cursor:default;
 	margin-right:0;
 }
 .stiffSettingsPage{
 	width:660px;
 	position: relative;
 }
-/*
-@keyframes littleJump{
-	0%{
-		transform: translateY(0px) translate(-50%,-50%)
-	}
-	20%{
-		transform: translateY(-5px) translate(-50%,-50%)
-	}
-	40%{
-		transform: translateY(0px) translate(-50%,-50%)
-	}
+.stiffCTitle{
+	position: relative;
+	top:0px;
+	left:0px;
+	font-size:1.5em;
 }
-@keyframes palletTurn{
-	0%{
-		transform: rotate(0deg) translate(-50%,-50%)
-	}
-	100%{
-		transform: rotate(360deg) translate(-50%,-50%)
-	}
+.stiffCVersions{
+	padding:5px;
+	position: relative;
+	margin-bottom:10px;
 }
-@keyframes heyThere{
-	0%{
-		transform: scale(1,1) translate(-50%,-50%)
-	}
-	50%{
-		transform: scale(1.2,1.2) translate(-50%,-50%)
-	}
-	100%{
-		transform: scale(1,1) translate(-50%,-50%)
-	}
+.stiffUpdateButton{
+	position: absolute;
+	top:25px;
+	right:20px;
+	padding:10px;
+	cursor:pointer;
+	background:rgb(29, 131, 29);
+	border-radius: 2px;
 }
-.stiffSelectorDiv.info:hover:before{
-	animation: littleJump 1s cubic-bezier(1,0,0,1);
+.stiffCVersions .version{
+	width:100%;
+	border-bottom:1px solid white;
+	font-size:1.2em;
 }
-.stiffSelectorDiv.color:hover:before{
-	animation: palletTurn .7s;
+
+.stiffCVersions .rdate{
+	font-size:.6em;
+	position: absolute;
+	right:5px;
+	top:10px;
+	color:rgb(212, 212, 212);
 }
-.stiffSelectorDiv.background:hover:before{
-	animation: heyThere .7s cubic-bezier(1,0,0,1);
-}*/
 .stiffPageWrapper{
 	padding:20px;
 	background: #abab00ab;
@@ -156,24 +188,25 @@
 .ripple {
 	width: 0;
 	height: 0;
-	border-radius: 50%;
+	border-radius: 50% !important;
 	background: rgba(255, 255, 255, 0.4);
 	transform: scale(0);
 	position: absolute;
 	opacity: 1;
-	z-index: 7000;
+	z-index: 20000;
 	pointer-events: none;
 	overflow: hidden !important;
 }
-.guild .avatar-small, .guild .friends-icon {
-	position: relative;
+
+/*RIPPLE FIXING*/
+
+.dms ~ .guild > div:not(.badge),.member,.containerDefault-7RImuF,.containerDefault-1bbItS,.channel,.popout-UKvsJt > .image-EVRGPw,.tab-bar-item,.container-3NvGrL{
+	z-index:7001;
 	overflow: hidden !important;
-	border-radius: 300px !important;
+	position: relative !important;
 }
-.member, .button-1aU9q1, .flexChild-1KGW5q, .containerDefault-1bbItS, .containerDefault-7RImuF {
-	position: relative;
-	overflow: hidden !important;
-}
+/*END*/
+
 .rippleEffect {
 	animation: rippleDrop .6s linear;
 	overflow: hidden !important;
