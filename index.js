@@ -140,8 +140,8 @@ module.exports = class stiffv2 extends Plugin {
     let color = this.DI.localStorage.getItem("stiff.color") || '#ef5350'
     let bgColor = '#212121'
     if(!this.DI.localStorage.getItem("stiff.pageDrag"))
-      this.DI.localStorage.setItem("stiff.pageDrag",true)
-    let pageDrag = this.DI.localStorage.getItem("stiff.pageDrag") || true
+      this.DI.localStorage.setItem("stiff.pageDrag",false)
+    let pageDrag = this.DI.localStorage.getItem("stiff.pageDrag") || false
     if(!DEBUG) fadeIn.className = "stiffFadeEffect stiffFadeActive"
 
     fs.readFile( __dirname + "/ts2.less", function (err, data) {
