@@ -11,7 +11,7 @@ Features:
 This is still a beta, if you find any bugs. Report them!
 
 ## Screenshots
-![Custom colors](https://u.lewd.se/3KPrbW_0NWsxtb.gif)
+![Custom colors!](https://u.lewd.se/ViXavQ_zdRYKx1.gif)
 
 Custom colors!
 
