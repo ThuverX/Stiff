@@ -156,7 +156,6 @@ module.exports = class SettingsGeneral extends React.PureComponent {
             { this.state.currentPage === "info" ?
             <div class="stiffPageWrapper" id="info">
               <div class="stiffInfoStrip">
-              <div class="stiffUpdateButton">Update!</div>
               <p class="stiffCTitle">{changelog.title}</p>
               {changelog.updates.map((u,i) => {
                 return <div class="stiffCVersions"><p class="version">v{u.version} {u.name} <p class="rdate">{u.releaseDate}</p></p><p>{u.text}</p></div>

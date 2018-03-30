@@ -32,6 +32,78 @@ Element.prototype.remove = function() {
   this.parentElement.removeChild(this)
 }
 
+const AutoUpdater = require('auto-updater');
+const autoupdater = new AutoUpdater({
+  pathToJson: '',
+  autoupdate: false,
+  checkgit: true,
+  jsonhost: 'raw.githubusercontent.com',
+  contenthost: 'codeload.github.com',
+  progressDebounce: 0,
+  devmode: false
+ });
+
+
+
+let zi = 50000
+function stiffAlert(html,time){
+  let alert = document.createElement('div')
+  alert.innerHTML = html;
+  let id = Math.round(Math.random() * 1000) + "stiffalert"
+  alert.id = id
+  alert.style.zIndex = zi
+  zi--
+  alert.className = "stiffAlert respawn"
+  document.body.appendChild(alert)
+  setTimeout(() => {
+    document.getElementById(id).className = "stiffAlert hide"
+    setTimeout(() => document.getElementById(id).remove(),500);
+    let aa = document.querySelectorAll('.stiffAlert:not(.hide)')
+    aa.forEach((a) => {
+      a.className = "stiffAlert"
+      setTimeout(() => a.className = "stiffAlert respawn",0);
+    })
+  },time)
+}
+
+
+autoupdater.on('git-clone', function() {
+  stiffAlert("You have a clone of the repository. Use 'git pull' to be up-to-date");
+});
+autoupdater.on('check.up-to-date', function(v) {
+  stiffAlert("You have the latest version: " + v,5000);
+});
+autoupdater.on('check.out-dated', function(v_old, v) {
+  stiffAlert("Your version is outdated. " + v_old + " of " + v,5000);
+});
+autoupdater.on('update.downloaded', function() {
+  stiffAlert("Update downloaded and ready for install",5000);
+});
+autoupdater.on('update.not-installed', function() {
+  stiffAlert("The Update was already in your folder! It's read for install",5000);
+});
+autoupdater.on('update.extracted', function() {
+  stiffAlert("Update extracted successfully!",5000);
+});
+autoupdater.on('download.start', function(name) {
+  stiffAlert("Starting downloading: " + name,5000);
+});
+autoupdater.on('download.progress', function(name, perc) {
+  //process.stdout.write("Downloading " + perc + "% \033[0G");
+});
+autoupdater.on('download.end', function(name) {
+  stiffAlert("Downloaded " + name,5000);
+});
+autoupdater.on('download.error', function(err) {
+  stiffAlert("Error when downloading: " + err,5000);
+});
+autoupdater.on('end', function() {
+  stiffAlert("The app is ready to function",5000);
+});
+autoupdater.on('error', function(name, e) {
+  stiffAlert(name + "," + e,5000);
+});
+
 NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
   for(let i = this.length - 1; i >= 0; i--) {
       if(this[i] && this[i].parentElement) {
@@ -215,11 +287,14 @@ module.exports = class stiffv2 extends Plugin {
     document.body.addEventListener('click', (e) =>{
       isElement(e)
     })
+
+    setTimeout(() => autoupdater.fire('check'),5000);
   }
 
   unload() {
     console.log('%c[Stiff] Unloading...',logCss)
     console.log('%c[Stiff][Mutator] Disconnecting observers',logCss)
+    document.querySelector('.stiffAlert').remove()
     popoutsObserver.disconnect()
     modalsObserver.disconnect()
     firstObserver.disconnect()

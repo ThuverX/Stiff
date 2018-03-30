@@ -33,6 +33,44 @@
 	border-radius: 2px;
 	cursor:pointer;
 }
+.stiffAlert.respawn{
+	animation: alert .5s;
+}
+.stiffAlert.hide{
+	animation: hideAlert .5s;
+}
+.stiffAlert{
+	position: absolute;
+	left:50%;
+	top:50px;
+	transform: translateX(-50%);
+	background: #263238;
+	border-radius: 2px !important;
+	min-height:100px;
+	min-width:300px;
+	color:white;
+	padding:20px;
+}
+@keyframes hideAlert{
+	0%{
+		opacity:1;
+		transform:translateX(-50%);
+	}
+	100%{
+		opacity:0;
+		transform: translate(-50%,100px);
+	}
+}
+@keyframes alert{
+	0%{
+		opacity:0;
+		transform:translate(-50%,-100px);
+	}
+	100%{
+		opacity:1;
+		transform: translateX(-50%);
+	}
+}
 
 .stiffSwitch:after{
 	content:'';
