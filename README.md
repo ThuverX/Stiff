@@ -11,10 +11,6 @@ Features:
 This is still a beta, if you find any bugs. Report them!
 
 ## Screenshots
-![Custom colors!](https://u.lewd.se/ViXavQ_zdRYKx1.gif)
-
-Custom colors!
-
 ![Settings page](https://u.lewd.se/wOzb02_5hK0203.png)
 
 Settings Page
