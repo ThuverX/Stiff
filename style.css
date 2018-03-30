@@ -121,8 +121,14 @@
 	right:20px;
 	padding:10px;
 	cursor:pointer;
-	background:rgb(29, 131, 29);
+	background:rgb(0, 183, 255);
 	border-radius: 2px;
+	color:white !important;
+	text-decoration: none !important;
+}
+.stiffUpdateButton a{
+	color:white !important;
+	text-decoration: none !important;
 }
 .stiffCVersions .version{
 	width:100%;
