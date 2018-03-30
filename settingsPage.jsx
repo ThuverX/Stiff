@@ -40,15 +40,13 @@ const getUserImage = (id) => {
     })
   })
 }
-
+let win;
 const openUDB = (id) => {
-  let win = new BrowserWindow({width: 800, height: 700,frame: false,transparent:true})
+  win = new BrowserWindow({width: 800, height: 700,frame: false,transparent:true})
 	win.loadURL(`https://udb.glitch.me/upload`)
 	win.once('ready-to-show', () => {
 		win.show()
-		win.setClosable(false)
-  })
-  win.webContents.on('dom-ready', (e) => {
+    win.setClosable(false)
   })
 	win.webContents.on('did-get-redirect-request', (event,oldURL,newURL) =>{
 		if(newURL === "https://udb.glitch.me/success" || newURL === "https://udb.glitch.me" || newURL === "https://udb.glitch.me/"){
@@ -68,9 +66,24 @@ const openUDB = (id) => {
       getUserImage(id)
 	  }
   })
+  win.webContents.on('did-finish-load', function() {
+    win.webContents.executeJavaScript("alert('fucko');var style = document.createElement('style');style.innerHTML = '.custom-file-upload:after{background:" + this.DI.localStorage.getItem("stiff.color") || '#ef5350' + " !important;}';document.body.appendChild(style);");
+  });
+
+  /*
+  win.webContents.on('did-finish-load', function() {
+    win.webContents.executeJavaScript(`
+      alert("HEY MAN");
+      let style = document.createElement("style");
+      style.innerHTML = ".custom-file-upload:after{background:${this.DI.localStorage.getItem("stiff.color") || '#ef5350'} !important;}"
+      document.body.appendChild(style);
+    `);
+  })*/
 }
+
 let id = ""
 let p
+
 module.exports = class SettingsGeneral extends React.PureComponent {
   constructor(props){
     super(props)
@@ -121,7 +134,8 @@ module.exports = class SettingsGeneral extends React.PureComponent {
   }
 
   clickUserSwitch(){
-    p.props.plugin.DI.localStorage.setItem("stiff.pageDrag",!p.props.plugin.DI.localStorage.getItem("stiff.pageDrag"))
+    let previous = p.props.plugin.DI.localStorage.getItem("stiff.pageDrag")
+    p.props.plugin.DI.localStorage.setItem("stiff.pageDrag",!previous)
     p.props.plugin.manager.get('stiff').repaint()
   }
 
@@ -154,7 +168,13 @@ module.exports = class SettingsGeneral extends React.PureComponent {
             <div class="stiffPageWrapper" id="background">
               <div class="stiffImagePicker" id={imageId} onClick={ this.openImageChanger }></div>
               <div class="stiffInfoStrip">Click the image to change your user background image.</div>
-              <div class="stiffSwitchWrapper">Extend the userpopout all the way? <div class="stiffSwitch" onClick={this.clickUserSwitch}></div></div>
+              {false?
+              <div class="stiffSwitchWrapper">Extend the userpopout all the way?
+                <div class="flexChild-1KGW5q switchEnabled-3CPlLV switch-3lyafC valueChecked-3Bzkbm value-kmHGfs sizeDefault-rZbSBU size-yI1KRe themeDefault-3M0dJU" style={{flex:" 0 0 auto",float:"right"}}>
+                  <input type="checkbox" onclick={this.clickUserSwitch} class="checkboxEnabled-4QfryV checkbox-1KYsPm" value={this.state.userSwitch?'on':'off'}></input>
+                </div>
+              </div>
+              :''}
             </div>
             : '' }
             {this.state.currentPage === "css" ?

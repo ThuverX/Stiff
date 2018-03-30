@@ -31,6 +31,7 @@ const getUserImage = (id) => {
 Element.prototype.remove = function() {
   this.parentElement.removeChild(this)
 }
+
 NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
   for(let i = this.length - 1; i >= 0; i--) {
       if(this[i] && this[i].parentElement) {
@@ -156,7 +157,8 @@ module.exports = class stiffv2 extends Plugin {
         if(!mutation.addedNodes[0] || !mutation.addedNodes[0].className.includes("modal")) return
         let el = mutation.addedNodes[0]
         let id = el.querySelector(".image-EVRGPw")
-        if(id) id = id.getAttribute("style").match(/\/avatars\/*.*\//g)[0].replace(/(avatars|\/)/g,'')
+        if(id) id = id.getAttribute("style").match(/\/avatars\/*.*\//g)
+        if(id) id = id[0].replace(/(avatars|\/)/g,'')
         let bgEl = el.querySelector(modalBackground)
         if(bgEl){
           bgEl.id = "udbImage" + id
@@ -169,28 +171,37 @@ module.exports = class stiffv2 extends Plugin {
     let firstObserver = new MutationObserver((mutations) =>{
       mutations.forEach((mutation) => {
         if(!mutation.addedNodes[0]) return
-        if(mutation.addedNodes[0].className === "theme-dark popouts"){
-          console.log('%c[Stiff][Mutator] Popouts found',logCss)
-          popoutsEl = mutation.addedNodes[0]
-          popoutsObserver.observe(popoutsEl,settings)
-        }
-        if(mutation.addedNodes[0].className === "theme-dark"){
-          console.log('%c[Stiff][Mutator] Modals found',logCss)
-          modalsEl = mutation.addedNodes[0]
-          modalsObserver.observe(modalsEl,settings)
-        }
+        mutation.addedNodes.forEach((node) => {
+          if(node.className === "theme-dark popouts"){
+            console.log('%c[Stiff][Mutator] Popouts found',logCss)
+            popoutsEl = node
+            popoutsObserver.observe(node,settings)
+          }
+          if(node.className === "theme-dark"){
+            console.log('%c[Stiff][Mutator] Modals found',logCss)
+            modalsEl = node
+            modalsObserver.observe(node,settings)
+          }
+        })
       })
     })
+
+    firstObserver.observe(document.querySelector("#app-mount"),settings)
+
     setTimeout(() => {
       if(!popoutsEl){
-        popoutsEl = document.querySelector(".theme-dark.popouts")
-        if(popoutsEl) console.log('%c[Stiff][Mutator] Popouts found',logCss)
-        popoutsObserver.observe(popoutsEl,settings)
+        popoutsEl = document.querySelector("#app-mount > .theme-dark.popouts")
+        if(popoutsEl){ 
+          popoutsObserver.observe(popoutsEl,settings)
+          console.log('%c[Stiff][Mutator] Popouts found (late!)',logCss)
+        }
       }
       if(!modalsEl){
-        modalsEl = document.querySelector(".theme-dark:not(.popouts)")
-        if(popoutsEl) console.log('%c[Stiff][Mutator] Modals found',logCss)
-        popoutsObserver.observe(modalsEl,settings)
+        modalsEl = document.querySelector("#app-mount > .theme-dark:not(.popouts)")
+        if(modalsEl){ 
+          modalsObserver.observe(modalsEl,settings)
+          console.log('%c[Stiff][Mutator] Modals found (late!)',logCss)
+        }
       }
       firstObserver.disconnect()
     }, 5000)
@@ -200,8 +211,6 @@ module.exports = class stiffv2 extends Plugin {
         if(eventType === "change")
           p.repaint()
       })
-
-    firstObserver.observe(document.querySelector("#app-mount"),settings)
 
     document.body.addEventListener('click', (e) =>{
       isElement(e)

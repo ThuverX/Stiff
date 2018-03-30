@@ -200,11 +200,20 @@
 
 /*RIPPLE FIXING*/
 
-.dms ~ .guild > div:not(.badge),.member,.containerDefault-7RImuF,.containerDefault-1bbItS,.channel,.popout-UKvsJt > .image-EVRGPw,.tab-bar-item,.container-3NvGrL{
+.dms ~ .guild > div:not(.badge),.popout-UKvsJt > .image-EVRGPw,.tab-bar-item,.container-3NvGrL{
 	z-index:7001;
 	overflow: hidden !important;
 	position: relative !important;
 }
+
+/*
+.containerDefault-7RImuF,.containerDefault-1bbItS,.member,.channel{
+	z-index:2001;
+	overflow: hidden !important;
+	position: relative !important;
+}
+*/
+
 /*END*/
 
 .rippleEffect {
