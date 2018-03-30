@@ -4,7 +4,7 @@ const fs = require('fs')
 const colorSort = require('color-sort')
 const https = require('https')
 
-const DEBUG = true
+const DEBUG = false
 
 const getUserImage = (id) => {
   https.get({host:`udb.glitch.me`,port:443,path: `/api/v2/get?id=${id}`}, function (res) {
@@ -31,6 +31,30 @@ const getUserImage = (id) => {
 Element.prototype.remove = function() {
   this.parentElement.removeChild(this)
 }
+
+
+let zi = 50000
+function stiffAlert(html,time){
+  let alert = document.createElement('div')
+  alert.innerHTML = html;
+  let id = Math.round(Math.random() * 1000) + "stiffalert"
+  alert.id = id
+  alert.style.zIndex = zi
+  zi--
+  alert.className = "stiffAlert respawn"
+  document.body.appendChild(alert)
+  setTimeout(() => {
+    document.getElementById(id).className = "stiffAlert hide"
+    setTimeout(() => document.getElementById(id).remove(),500);
+    let aa = document.querySelectorAll('.stiffAlert:not(.hide)')
+    aa.forEach((a) => {
+      a.className = "stiffAlert"
+      setTimeout(() => a.className = "stiffAlert respawn",0);
+    })
+  },time)
+}
+
+
 NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
   for(let i = this.length - 1; i >= 0; i--) {
       if(this[i] && this[i].parentElement) {
@@ -38,6 +62,22 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
       }
   }
 }
+
+
+function checkForUpdate(c){
+  const current = require('./package.json')
+
+  https.get(`https://raw.githubusercontent.com/ThuverX/Stiff/${current.repository.branch}/package.json`, (res) => {
+      res.setEncoding('utf8')
+      res.on('data', function (body) {
+        const web = JSON.parse(body);
+        if(parseInt(current.version.replace(/\./g,'')) < parseInt(web.version.replace(/\./g,''))){
+          c({old:current,new:web})
+        }
+      })
+  })
+}
+
 let fadeIn
 const logCss = 'background:red;color:white;padding:2px;'
 const popoutBackground = ".header-3budic"
@@ -74,7 +114,7 @@ module.exports = class stiffv2 extends Plugin {
       width:100vw;
       height:100vh;
       overflow:hidden;
-      z-index: 9000;
+      z-index: 29000;
       pointer-events: none;
     }
     .stiffFadeActive{
@@ -97,13 +137,16 @@ module.exports = class stiffv2 extends Plugin {
 
   repaint(){
     console.log('%c[Stiff] Repainting...',logCss)
-    let color = this.DI.localStorage.getItem("stiff.color")?this.DI.localStorage.getItem("stiff.color"):'#ef5350'
+    let color = this.DI.localStorage.getItem("stiff.color") || '#ef5350'
     let bgColor = '#212121'
+    if(!this.DI.localStorage.getItem("stiff.pageDrag"))
+      this.DI.localStorage.setItem("stiff.pageDrag",true)
+    let pageDrag = this.DI.localStorage.getItem("stiff.pageDrag") || true
     if(!DEBUG) fadeIn.className = "stiffFadeEffect stiffFadeActive"
 
     fs.readFile( __dirname + "/ts2.less", function (err, data) {
-      let src = data.toString('utf8');
-      let input = src.replace("@color:#009688",`@color:${color}`).replace(/\@bgColor\:\#212121/g,`@bgColor:${bgColor}`)
+      let src = data.toString('utf8')
+      let input = src.replace("@color:#009688",`@color:${color}`).replace(/\@bgColor\:\#212121/g,`@bgColor:${bgColor}`).replace(/\@pageDrag\:false\;/,`@pageDrag:${pageDrag};`)
 
       let stiffStyle = document.createElement('style')
       stiffStyle.id = "stiffStyle"
@@ -125,6 +168,10 @@ module.exports = class stiffv2 extends Plugin {
   }
 
   load(){
+    checkForUpdate((d) => {
+      stiffAlert(`<div class="stiffUpdateNotice">Stiff is out of date!<br/> Please update to v${d.new.version}</div>`,5000)
+    })
+    
     let p = this
     document.addEventListener ( "keydown" , function (zEvent) { if (zEvent.ctrlKey  &&  zEvent.altKey  &&  zEvent.code === "KeyT") { p.repaint( ) } } )
     this.registerSettingsTab('Stiff', require('./settingsPage'))
@@ -138,7 +185,8 @@ module.exports = class stiffv2 extends Plugin {
         if(!mutation.addedNodes[0] || !mutation.addedNodes[0].className.includes("popout")) return
         let el = mutation.addedNodes[0]
         let id = el.querySelector(".image-EVRGPw")
-        if(id) id = id.getAttribute("style").match(/\/avatars\/*.*\//g)[0].replace(/(avatars|\/)/g,'')
+        if(id) id = id.getAttribute("style").match(/\/avatars\/*.*\//g)
+        if(id) id = id[0].replace(/(avatars|\/)/g,'')
         let bgEl = el.querySelector(popoutBackground)
         if(bgEl){
           bgEl.id = "udbImage" + id
@@ -152,7 +200,8 @@ module.exports = class stiffv2 extends Plugin {
         if(!mutation.addedNodes[0] || !mutation.addedNodes[0].className.includes("modal")) return
         let el = mutation.addedNodes[0]
         let id = el.querySelector(".image-EVRGPw")
-        if(id) id = id.getAttribute("style").match(/\/avatars\/*.*\//g)[0].replace(/(avatars|\/)/g,'')
+        if(id) id = id.getAttribute("style").match(/\/avatars\/*.*\//g)
+        if(id) id = id[0].replace(/(avatars|\/)/g,'')
         let bgEl = el.querySelector(modalBackground)
         if(bgEl){
           bgEl.id = "udbImage" + id
@@ -165,28 +214,37 @@ module.exports = class stiffv2 extends Plugin {
     let firstObserver = new MutationObserver((mutations) =>{
       mutations.forEach((mutation) => {
         if(!mutation.addedNodes[0]) return
-        if(mutation.addedNodes[0].className === "theme-dark popouts"){
-          console.log('%c[Stiff][Mutator] Popouts found',logCss)
-          popoutsEl = mutation.addedNodes[0]
-          popoutsObserver.observe(popoutsEl,settings)
-        }
-        if(mutation.addedNodes[0].className === "theme-dark"){
-          console.log('%c[Stiff][Mutator] Modals found',logCss)
-          modalsEl = mutation.addedNodes[0]
-          modalsObserver.observe(modalsEl,settings)
-        }
+        mutation.addedNodes.forEach((node) => {
+          if(node.className === "theme-dark popouts"){
+            console.log('%c[Stiff][Mutator] Popouts found',logCss)
+            popoutsEl = node
+            popoutsObserver.observe(node,settings)
+          }
+          if(node.className === "theme-dark"){
+            console.log('%c[Stiff][Mutator] Modals found',logCss)
+            modalsEl = node
+            modalsObserver.observe(node,settings)
+          }
+        })
       })
     })
+
+    firstObserver.observe(document.querySelector("#app-mount"),settings)
+
     setTimeout(() => {
       if(!popoutsEl){
-        popoutsEl = document.querySelector(".theme-dark.popouts")
-        if(popoutsEl) console.log('%c[Stiff][Mutator] Popouts found',logCss)
-        popoutsObserver.observe(popoutsEl,settings)
+        popoutsEl = document.querySelector("#app-mount > .theme-dark.popouts")
+        if(popoutsEl){ 
+          popoutsObserver.observe(popoutsEl,settings)
+          console.log('%c[Stiff][Mutator] Popouts found (late!)',logCss)
+        }
       }
       if(!modalsEl){
-        modalsEl = document.querySelector(".theme-dark:not(.popouts)")
-        if(popoutsEl) console.log('%c[Stiff][Mutator] Modals found',logCss)
-        popoutsObserver.observe(modalsEl,settings)
+        modalsEl = document.querySelector("#app-mount > .theme-dark:not(.popouts)")
+        if(modalsEl){ 
+          modalsObserver.observe(modalsEl,settings)
+          console.log('%c[Stiff][Mutator] Modals found (late!)',logCss)
+        }
       }
       firstObserver.disconnect()
     }, 5000)
@@ -197,14 +255,41 @@ module.exports = class stiffv2 extends Plugin {
           p.repaint()
       })
 
-    firstObserver.observe(document.querySelector("#app-mount"),settings)
+    document.body.addEventListener('click', (e) =>{
+      isElement(e)
+    })
+
   }
 
   unload() {
     console.log('%c[Stiff] Unloading...',logCss)
     console.log('%c[Stiff][Mutator] Disconnecting observers',logCss)
+    document.querySelector('.stiffAlert').remove()
     popoutsObserver.disconnect()
     modalsObserver.disconnect()
     firstObserver.disconnect()
   }
+}
+
+const classList = [".dms ~ .guild > div",".containerDefault-7RImuF",".containerDefault-1bbItS",".member",".channel",".popout-UKvsJt > .image-EVRGPw",".tab-bar-item",".icon-mr9wAc",".container-3NvGrL > div" ]
+function isElement(e){
+  for (let i = 0; i<classList.length; i++) {
+    return ripple(e.target.closest(classList[i]))
+  }
+}
+
+function ripple(el){
+  if(!el) return
+  document.querySelectorAll('.ripple').remove()
+  let buttonWidth = el.offsetWidth,
+      buttonHeight =  el.offsetHeight
+  let span  = document.createElement('span')
+  span.className = "ripple"
+  el.prepend(span)
+
+  if(buttonWidth >= buttonHeight) buttonHeight = buttonWidth;else buttonWidth = buttonHeight
+
+  span.style.width = buttonWidth + "px"
+  span.style.height = buttonHeight + "px"
+  span.className += " rippleEffect"
 }

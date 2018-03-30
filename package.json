@@ -1,17 +1,25 @@
 {
   "name": "stiff",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "index.js",
   "author": "ThuverX",
-  "description": "Stiff",
-  "css": [
-    "style.css"
-  ],
+  "description": "Stiff is a theme for Discord",
   "dependencies": {
     "color-sort": "0.0.1",
     "less": "^2.7.3",
-    "react-color": "^2.13.8"
+    "react-color": "^2.13.8",
+    "remove": "^0.1.5",
+    "update-notifier": "^2.4.0"
   },
   "devDependencies": {},
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThuverX/Stiff.git",
+    "branch": "Beta"
+  },
+  "bugs": {
+    "url": "https://github.com/ThuverX/Stiff/issues"
+  },
+  "homepage": "https://github.com/ThuverX/Stiff#readme"
 }

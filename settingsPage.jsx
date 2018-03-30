@@ -40,15 +40,13 @@ const getUserImage = (id) => {
     })
   })
 }
-
+let win;
 const openUDB = (id) => {
-  let win = new BrowserWindow({width: 800, height: 700,frame: false,transparent:true})
+  win = new BrowserWindow({width: 800, height: 700,frame: false,transparent:true})
 	win.loadURL(`https://udb.glitch.me/upload`)
 	win.once('ready-to-show', () => {
 		win.show()
-		win.setClosable(false)
-  })
-  win.webContents.on('dom-ready', (e) => {
+    win.setClosable(false)
   })
 	win.webContents.on('did-get-redirect-request', (event,oldURL,newURL) =>{
 		if(newURL === "https://udb.glitch.me/success" || newURL === "https://udb.glitch.me" || newURL === "https://udb.glitch.me/"){
@@ -68,14 +66,29 @@ const openUDB = (id) => {
       getUserImage(id)
 	  }
   })
+  win.webContents.on('did-finish-load', function() {
+    win.webContents.executeJavaScript("alert('fucko');var style = document.createElement('style');style.innerHTML = '.custom-file-upload:after{background:" + this.DI.localStorage.getItem("stiff.color") || '#ef5350' + " !important;}';document.body.appendChild(style);");
+  });
+
+  /*
+  win.webContents.on('did-finish-load', function() {
+    win.webContents.executeJavaScript(`
+      alert("HEY MAN");
+      let style = document.createElement("style");
+      style.innerHTML = ".custom-file-upload:after{background:${this.DI.localStorage.getItem("stiff.color") || '#ef5350'} !important;}"
+      document.body.appendChild(style);
+    `);
+  })*/
 }
+
 let id = ""
 let p
+
 module.exports = class SettingsGeneral extends React.PureComponent {
   constructor(props){
     super(props)
     p = this
-    this.state = {currentPage:"info"}
+    this.state = {currentPage:"info",userSwitch:(p.props.plugin.DI.localStorage.getItem("stiff.pageDrag")||true)}
   }
 
   openImageChanger () {
@@ -84,14 +97,14 @@ module.exports = class SettingsGeneral extends React.PureComponent {
 
   handleColorChange (color,event){
     p.props.plugin.DI.localStorage.setItem('stiff.colorUnset',color.hex)
-    document.querySelector('.sidebar').style.background = color.hex;
-    document.querySelector('.stiffPageWrapper').style.background = color.hex;
+    document.querySelector('.sidebar').style.background = color.hex
+    document.querySelector('.stiffPageWrapper').style.background = color.hex
   }
 
   handleColorChangeComplete (color,event){
     p.props.plugin.DI.localStorage.setItem('stiff.color',color.hex)
-    document.querySelector('.sidebar').style.background = color.hex;
-    document.querySelector('.stiffPageWrapper').style.background = color.hex;
+    document.querySelector('.sidebar').style.background = color.hex
+    document.querySelector('.stiffPageWrapper').style.background = color.hex
     p.props.plugin.manager.get('stiff').repaint()
   }
 
@@ -120,9 +133,17 @@ module.exports = class SettingsGeneral extends React.PureComponent {
     }
   }
 
+  clickUserSwitch(){
+    let previous = p.props.plugin.DI.localStorage.getItem("stiff.pageDrag")
+    p.props.plugin.DI.localStorage.setItem("stiff.pageDrag",!previous)
+    p.props.plugin.manager.get('stiff').repaint()
+  }
+
   render () {
+    const changelog = require('./changelog.json')
     id = JSON.parse(p.props.plugin.DI.localStorage.getItem('FriendSyncResultHashes')).userId || "unknown"
     getUserImage(id)
+    
     let imageId = "udbImage" + id
         return (
           <div class="stiffSettingsPage">
@@ -134,18 +155,30 @@ module.exports = class SettingsGeneral extends React.PureComponent {
             <div class="stiffSelectorDiv fix"></div>
             { this.state.currentPage === "info" ?
             <div class="stiffPageWrapper" id="info">
-              <div class="stiffInfoStrip data-info">{"result.info"}</div>
+              <div class="stiffInfoStrip">
+              <p class="stiffCTitle">{changelog.title}</p>
+              {changelog.updates.map((u,i) => {
+                return <div class="stiffCVersions"><p class="version">v{u.version} {u.name} <p class="rdate">{u.releaseDate}</p></p><p>{u.text}</p></div>
+              })}
+            </div>
             </div>
             : '' }
             {this.state.currentPage === "background" ?
             <div class="stiffPageWrapper" id="background">
               <div class="stiffImagePicker" id={imageId} onClick={ this.openImageChanger }></div>
               <div class="stiffInfoStrip">Click the image to change your user background image.</div>
+              {false?
+              <div class="stiffSwitchWrapper">Extend the userpopout all the way?
+                <div class="flexChild-1KGW5q switchEnabled-3CPlLV switch-3lyafC valueChecked-3Bzkbm value-kmHGfs sizeDefault-rZbSBU size-yI1KRe themeDefault-3M0dJU" style={{flex:" 0 0 auto",float:"right"}}>
+                  <input type="checkbox" onclick={this.clickUserSwitch} class="checkboxEnabled-4QfryV checkbox-1KYsPm" value={this.state.userSwitch?'on':'off'}></input>
+                </div>
+              </div>
+              :''}
             </div>
             : '' }
             {this.state.currentPage === "css" ?
             <div class="stiffPageWrapper" id="css">
-              <div class="stiffInfoStrip">Here you will be able to change css addons.</div>
+              <div class="stiffInfoStrip">Nothing here yet.</div>
             </div>
             : '' }
             { this.state.currentPage === "color" ?

@@ -1,0 +1,11 @@
+{
+    "title":"Thanks for installing Stiff!",
+    "updates":[
+        {
+            "name":"Beta 1",
+            "version":"1.6",
+            "text":"First Beta Release of Stiff!",
+            "releaseDate":"Someday"
+        }
+    ]
+}
