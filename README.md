@@ -1,3 +1,32 @@
-Stiff is a discord skin created by ThuverX.
-[Settings page](https://u.lewd.se/wOzb02_5hK0203.png)
-Its aiming to be a Material like skin. Using icons from google.
+# Stiff is a discord skin created by ThuverX.
+Stiff is aiming to be a material-like skin, using icons from Google.
+
+
+Features:
+* Customizable colors
+* Display a image on your profile, that everybody can see!
+* \*Your feature here?\*
+* More coming soon!
+
+This is still a beta, if you find any bugs. Report them!
+
+## Screenshots
+![Settings page](https://u.lewd.se/wOzb02_5hK0203.png)
+
+Settings Page
+
+![Guild](https://u.lewd.se/HhuXES_LCOf8CD.png)
+
+Guild view
+
+![Create server](https://u.lewd.se/R4Vwen_Bru7rWa.png)
+
+Create/Join server modal
+
+![User popout](https://u.lewd.se/5MHr6Y_MB08GFK.png)
+
+User popout with custom background
+
+![User profile](https://u.lewd.se/33ukIC_LE6XwTZ.png)
+
+User profile with custom background
