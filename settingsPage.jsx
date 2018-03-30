@@ -40,9 +40,9 @@ const getUserImage = (id) => {
     })
   })
 }
-let win;
+
 const openUDB = (id) => {
-  win = new BrowserWindow({width: 800, height: 700,frame: false,transparent:true})
+  let win = new BrowserWindow({width: 800, height: 700,frame: false,transparent:true})
 	win.loadURL(`https://udb.glitch.me/upload`)
 	win.once('ready-to-show', () => {
 		win.show()
