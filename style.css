@@ -51,6 +51,9 @@
 	color:white;
 	padding:20px;
 }
+.stiffUpdateNotice{
+	text-align: center;
+}
 @keyframes hideAlert{
 	0%{
 		opacity:1;

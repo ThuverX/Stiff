@@ -62,6 +62,22 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
       }
   }
 }
+
+
+function checkForUpdate(c){
+  const current = require('./package.json')
+
+  https.get(`https://raw.githubusercontent.com/ThuverX/Stiff/${current.repository.branch}/package.json`, (res) => {
+      res.setEncoding('utf8')
+      res.on('data', function (body) {
+        const web = JSON.parse(body);
+        if(parseInt(current.version.replace(/\./g,'')) < parseInt(web.version.replace(/\./g,''))){
+          c({old:current,new:web})
+        }
+      })
+  })
+}
+
 let fadeIn
 const logCss = 'background:red;color:white;padding:2px;'
 const popoutBackground = ".header-3budic"
@@ -152,6 +168,10 @@ module.exports = class stiffv2 extends Plugin {
   }
 
   load(){
+    checkForUpdate((d) => {
+      stiffAlert(`<div class="stiffUpdateNotice">Stiff is out of date!<br/> Please update to v${d.new.version}</div>`,5000)
+    })
+    
     let p = this
     document.addEventListener ( "keydown" , function (zEvent) { if (zEvent.ctrlKey  &&  zEvent.altKey  &&  zEvent.code === "KeyT") { p.repaint( ) } } )
     this.registerSettingsTab('Stiff', require('./settingsPage'))
