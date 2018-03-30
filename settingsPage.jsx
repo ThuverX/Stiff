@@ -141,7 +141,7 @@ module.exports = class SettingsGeneral extends React.PureComponent {
 
   render () {
     const changelog = require('./changelog.json')
-    id = JSON.parse(p.props.plugin.DI.localStorage.getItem('FriendSyncResultHashes')).userId || "unknown"
+    id = window.discordID || "unknown"
     getUserImage(id)
     
     let imageId = "udbImage" + id
