@@ -67,7 +67,7 @@ const openUDB = (id) => {
 	  }
   })
   win.webContents.on('did-finish-load', function() {
-    win.webContents.executeJavaScript("alert('fucko');var style = document.createElement('style');style.innerHTML = '.custom-file-upload:after{background:" + this.DI.localStorage.getItem("stiff.color") || '#ef5350' + " !important;}';document.body.appendChild(style);");
+    win.webContents.executeJavaScript("alert('fucko');var style = document.createElement('style');style.innerHTML = '.custom-file-upload:after{background:" + p.props.plugin.DI.localStorage.getItem("stiff.color") || '#ef5350' + " !important;}';document.body.appendChild(style);");
   });
 
   /*

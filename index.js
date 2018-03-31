@@ -157,6 +157,9 @@ module.exports = class stiffv2 extends Plugin {
         stiffElements.forEach((el) => {
           el.remove()
         })
+        checkForUpdate((d) => {
+          stiffAlert(`<div class="stiffUpdateNotice">Stiff is out of date!<br/> Please update to v${d.new.version}</div>`,5000)
+        })
         fs.readFile( __dirname + "/style.css", function (err, data) {
           stiffStyle.innerHTML += data.toString('utf8').replace(/\#abab00ab/g,color)
           document.body.prepend(stiffStyle)
@@ -167,10 +170,6 @@ module.exports = class stiffv2 extends Plugin {
   }
 
   load(){
-    checkForUpdate((d) => {
-      stiffAlert(`<div class="stiffUpdateNotice">Stiff is out of date!<br/> Please update to v${d.new.version}</div>`,5000)
-    })
-    
     let p = this
     document.addEventListener ( "keydown" , function (zEvent) { if (zEvent.ctrlKey  &&  zEvent.altKey  &&  zEvent.code === "KeyT") { p.repaint( ) } } )
     this.registerSettingsTab('Stiff', require('./settingsPage'))

@@ -44,10 +44,10 @@
 	left:50%;
 	top:50px;
 	transform: translateX(-50%);
-	background: #263238;
+	background: #a32933;
 	border-radius: 2px !important;
-	min-height:100px;
-	min-width:300px;
+	min-height:20px;
+	min-width:200px;
 	color:white;
 	padding:20px;
 }
