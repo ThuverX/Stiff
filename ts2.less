@@ -1,6 +1,6 @@
 // out: ts2.css
 
-#friends,.app .layers-20RVFW .layer,.app .layers-20RVFW .layer>[class*='container-'],.app .layers-20RVFW,.content-region,.guilds-wrapper,.sidebar-region,.ui-standard-sidebar-view,[class*='activityFeed-'],[class*='channels-'],[class*='titleBar-'],#friends .friends-table,.channel-members,.channel-members-loading,.chat .content,.chat form,.chat,
+#friends,.app .layers-20RVFW .layer,.app .layers-20RVFW .layer>[class*='container-'],.app .layers-20RVFW,.content-region,.guilds-wrapper,.sidebar-region,.members-1bid1J,.ui-standard-sidebar-view,[class*='activityFeed-'],[class*='channels-'],[class*='titleBar-'],#friends .friends-table,.channel-members,.channel-members-loading,.chat .content,.chat form,.chat,
 .content .flex-spacer,.messages-wrapper,[class*='channels-'] [class*="container-"],[class*='headerBar-'],[class*='titleWrapper-'] [class*='title-']
 , .popout-open .header-1tSljs, .popout-open .header-1tSljs > *{background: transparent !important;box-shadow: none !important;border:none !important;}
 .messages-wrapper + form ,.flexChild-1KGW5q *{box-shadow: none !important;}
@@ -337,7 +337,7 @@ div[class*='titleBar-']{
     padding-top:20px !important;
 }
 
-.channel-members-wrap{
+.channel-members-wrap,.membersWrap-3wRngy{
 	background:@color;
 }
 .image-3Y4mXQ[style*="f3bb89a27e9d102f748da035cd7e5df7"]{
@@ -1155,7 +1155,7 @@ div[class*="titleWrapper-"],.headerBar-cxbhPD{
 .content{
 	overflow: visible;
 }
-.channel-members-wrap{
+.channel-members-wrap,.membersWrap-3wRngy{
 	&:before{
 		position: absolute;
 		content:'';
@@ -2568,9 +2568,18 @@ svg[name="RichActivity"]{
 
 	*{fill:white !important;}
 }
+.popout-top-left{
+	transform:translateY(-100%) !important;
+	.alt-2vq4VR{
+		*{color:white !important;}
+		.item-rK1j5B:hover{
+			*{color:black !important;}
+		}
+	}
+}
 @message-darken		: 10%;
-.channel-members{
-	.old-h2{
+.channel-members,.members-1bid1J{
+	.old-h2,.membersGroup-3_dP5E{
 		color:white !important;
 		padding:0 !important;
 		margin:0 !important;
@@ -2584,6 +2593,9 @@ svg[name="RichActivity"]{
 	}
 	.member,.member-2FrNV0{
 		margin-bottom:7px !important;
+		border-radius: 0px !important;
+		margin-left:0 !important;
+		padding-left:8px !important;
 		margin-top:7px !important;
 		background: transparent !important;
 		.activityText-258pdj{
