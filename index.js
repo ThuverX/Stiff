@@ -136,6 +136,10 @@ module.exports = class stiffv2 extends Plugin {
   }
 
   repaint(){
+    let id = document.querySelector('#app-mount > div.app-XZYfmp.platform-win > div > div.layers-20RVFW.flex-vertical.flex-spacer > div > div > div.flex-lFgbSz.flex-3B1Tl4.vertical-3X17r5.flex-3B1Tl4.directionColumn-2h-LPR.justifyStart-2yIZo0.alignStretch-1hwxMa.noWrap-v6g9vO.base-3AoPqv > div.flex-lFgbSz.flex-3B1Tl4.horizontal-2BEEBe.horizontal-2VE-Fw.flex-3B1Tl4.directionRow-yNbSvJ.justifyStart-2yIZo0.alignStretch-1hwxMa.noWrap-v6g9vO.spacer-3Dkonz > div.channels-3g2vYe.vertical-3X17r5.flex-3B1Tl4.directionColumn-2h-LPR > div.container-iksrDt > div.avatar-small')
+    if(id) id = id.getAttribute("style").match(/\/avatars\/*.*\//g)
+    if(id) id = id[0].replace(/(avatars|\/)/g,'')
+    if(id != window.discordID) window.discordID = id
     console.log('%c[Stiff] Repainting...',logCss)
     let color = this.DI.localStorage.getItem("stiff.color") || '#ef5350'
     if(this.DI.localStorage.getItem("stiff.pageDrag") == null)
