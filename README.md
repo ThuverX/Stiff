@@ -1,5 +1,8 @@
 ![Stiff](https://media.discordapp.net/attachments/179642073048285185/409380741068226561/logoBig.png)
-Stiff is aiming to be a material-like skin, using icons from Google.
+Stiff is aiming to be a material-like skin for Discord!
+
+Currently only works with Discord Injections.
+Place inside `DiscordInjections/Plugins/Stiff` folder
 
 
 Features:
