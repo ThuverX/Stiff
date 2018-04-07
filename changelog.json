@@ -2,10 +2,10 @@
     "title":"Thanks for installing Stiff!",
     "updates":[
         {
-            "name":"Beta Release 1",
+            "name":"Beta Release!",
             "version":"0.6",
-            "text":"Thanks for trying the beta of Stiff!\nIf you find any bugs please report them on Github!",
-            "releaseDate":"March 31, 2018"
+            "text":"Thanks for trying the beta of Stiff! If you find any bugs please report them on Github! Or on the Discord server, With the buttons above!",
+            "releaseDate":"April 7, 2018"
         },
         {
             "name":"Before beta",

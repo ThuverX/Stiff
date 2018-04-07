@@ -279,9 +279,9 @@ module.exports = class stiffv2 extends Plugin {
 
 const classList = [".dms ~ .guild > div",".containerDefault-7RImuF",".containerDefault-1bbItS",".member",".channel",".popout-UKvsJt > .image-EVRGPw",".tab-bar-item",".icon-mr9wAc",".container-3NvGrL > div" ]
 function isElement(e){
-  for (let i = 0; i<classList.length; i++) {
+  /*for (let i = 0; i<classList.length; i++) {
     return ripple(e.target.closest(classList[i]))
-  }
+  }*/
 }
 
 function ripple(el){

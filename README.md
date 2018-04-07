@@ -11,7 +11,10 @@ Features:
 * \*Your feature here?\*
 * More coming soon!
 
-This is still a beta, if you find any bugs. Report them!
+This is still a beta, if you find any bugs. Report them on github!
+
+OR
+Join the [Discord Server](https://discord.gg/8T2rWM6)!
 
 ## Screenshots
 ![Settings page](https://u.lewd.se/wOzb02_5hK0203.png)
