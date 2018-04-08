@@ -2362,7 +2362,10 @@ div[class*="titleWrapper-"],.headerBar-cxbhPD{
 			background:@bgColor;
 		}
 		.topSectionStreaming-3rIBIm{
-			.buttonOutlined-38aLSW{
+			.buttonInvertedPurple-15OGid{
+				margin-top:-280px !important;
+			}
+			.lookOutlined-1c5nhl{
 				margin-right:20px !important;
 			}
 			button{
@@ -2807,6 +2810,12 @@ svg[name="RichActivity"]{
 		.embedImage-1JnXMa{
 			border-radius: 0px !important;
 		}
+		.mention{
+			background:transparent !important;
+			&:hover{
+				text-decoration: underline !important;
+			}
+		}
 		border:none !important;
 		background: transparent !important;
 		border-radius: 0px !important;
@@ -3074,6 +3083,45 @@ svg[name="RichActivity"]{
   z-index:7500;
   border:none !important;
 }
+.accountList-odI5wQ{
+	*{color:white !important;}
+}
+.connectedAccounts-3xeYin{
+	.wrapper-11sL4k .inner-21BDhs{
+		background-color: transparent !important;
+		border:none !important;
+		-webkit-box-shadow: none !important;
+		-moz-box-shadow: none !important;
+		box-shadow: none !important;
+		&:hover{
+			filter:brightness(150%);
+		}
+	}
+}
+.connection-2r9Zua{
+	border:none !important;
+	border-radius: 0 !important;
+	background:transparent !important;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
+	.connectionDelete-1E0cwj{
+		border:none !important;
+		&:hover{
+			background:black !important;
+			filter:invert(100%);
+		}
+	}
+	.connectionHeader-2neBI0{
+		border:none !important;
+		border-radius: 0 !important;
+		background:transparent !important;
+		-webkit-box-shadow: none !important;
+		-moz-box-shadow: none !important;
+		box-shadow: none !important;
+	}
+}
+
 .guilds-wrapper .guilds .guild .guild-inner {background:transparent !important;}
 .guilds-wrapper{
   .guilds.scroller > .guild:first-child {
@@ -3130,6 +3178,9 @@ svg[name="RichActivity"]{
 		height:50px !important;
 		width:80px !important;
 		background: lighten(@color,25%) !important;
+	}
+	.guild.unread.selected:before{
+		background:white !important;
 	}
 	.badge{
 		z-index:20000 !important;
