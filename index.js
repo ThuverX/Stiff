@@ -271,6 +271,7 @@ module.exports = class stiffv2 extends Plugin {
     console.log('%c[Stiff] Unloading...',logCss)
     console.log('%c[Stiff][Mutator] Disconnecting observers',logCss)
     document.querySelector('.stiffAlert').remove()
+    document.querySelector('div[id*="udbUserImageStyle"]').remove()
     popoutsObserver.disconnect()
     modalsObserver.disconnect()
     firstObserver.disconnect()
