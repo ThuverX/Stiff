@@ -1,6 +1,8 @@
 ![Stiff](https://u.lewd.se/tIS7o0_8VVLfDd.png)
 Stiff is aiming to be a material-like skin for Discord!
 
+For more info go to the new [website](https://stiff.glitch.me/)!
+
 Currently only works with Discord Injections.
 
 ## Installation: 
@@ -22,7 +24,7 @@ This is still a beta, if you find any bugs. Report them on github!
 OR
 Join the [Discord Server](https://discord.gg/8T2rWM6)!
 
-Also check out the new [website](https://stiff.glitch.me/)!
+
 
 ## Screenshots
 ![Settings page](https://u.lewd.se/wOzb02_5hK0203.png)
