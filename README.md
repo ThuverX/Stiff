@@ -13,6 +13,7 @@ Currently only works with Discord Injections.
 ## Features:
 * Customizable colors
 * Display a image on your profile, that everybody can see!
+* Add your own CSS with CSS addons
 * \*Your feature here?\*
 * More coming soon!
 
