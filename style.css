@@ -20,7 +20,33 @@
 	position: relative;
 	border-top:1px solid white;
 	width:100%;
-	padding-top:5px;
+	padding-top:20px;
+	padding-bottom:20px;
+}
+
+.stiffUpdateButton:hover a{
+	color:black !important;
+}
+.stiffUpdateButton:hover{
+	background: white !important;
+}
+.stiffCssItem{
+	margin-bottom:20px;
+	position: relative;
+	width:100%;
+	color:white;
+	border-radius: 2px;
+	padding:10px;
+	padding-bottom:20px;
+	background:#212121;
+	min-height:40px;
+}
+.stiffCssItem .stiffUpdateButton{
+	top:5px;
+	right:0;
+	margin-right:10px;
+	padding-left:20px;
+	padding-right:20px;
 }
 .stiffSwitch{
 	width:50px;
@@ -125,8 +151,11 @@
 	border-radius: 2px;
 	color:white !important;
 	text-decoration: none !important;
+	transition: all .3s;
+	z-index:2000;
 }
 .stiffUpdateButton a{
+	transition: all .3s;
 	color:white !important;
 	text-decoration: none !important;
 }
@@ -149,6 +178,7 @@
 	position: relative;
 	transition: background 1s ease;
 	animation: fadeIn .3s;
+	color:white;
 }
 .stiffSelectorDiv.css:before{
 	background-image: url(https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_import_export_white_48px.svg);

@@ -1,6 +1,6 @@
 {
   "name": "stiff",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "main": "index.js",
   "author": "ThuverX",
   "description": "Stiff is a theme for Discord",
@@ -11,7 +11,7 @@
     "update-notifier": "^2.4.0"
   },
   "devDependencies": {},
-  "license": "ISC",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ThuverX/Stiff.git",

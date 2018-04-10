@@ -1,6 +1,9 @@
 const React = require('react')
-const { BrowserWindow } = require('electron').remote
 const https = require('https')
+const path = require('path')
+const fs = require('fs')
+
+const { BrowserWindow , shell } = require('electron').remote
 const { ChromePicker , CirclePicker } = require('react-color')
 
 const colorSort = require('color-sort')
@@ -78,7 +81,12 @@ module.exports = class SettingsGeneral extends React.PureComponent {
   constructor(props){
     super(props)
     p = this
-    this.state = {currentPage:"info",userSwitch:(p.props.plugin.DI.localStorage.getItem("stiff.pageDrag")||true)}
+    this.state = {
+      currentPage:"info",
+      cssAddons:[],
+      devMode:(p.props.plugin.DI.localStorage.getItem("stiff.devMode")||false),
+      userSwitch:(p.props.plugin.DI.localStorage.getItem("stiff.pageDrag")||false)
+    }
   }
 
   openImageChanger () {
@@ -124,19 +132,68 @@ module.exports = class SettingsGeneral extends React.PureComponent {
   }
 
   clickUserSwitch(){
-    let previous = p.props.plugin.DI.localStorage.getItem("stiff.pageDrag")
+
+    let previous = p.props.plugin.DI.localStorage.getItem("stiff.pageDrag")  == 'true'
+    p.setState({ userSwitch: !previous })
     p.props.plugin.DI.localStorage.setItem("stiff.pageDrag",!previous)
     p.props.plugin.manager.get('stiff').repaint()
   }
-
+  clickDevSwitch(){
+    let previous = p.props.plugin.DI.localStorage.getItem("stiff.devMode")  == 'true'
+    p.setState({ devMode: !previous})
+    p.props.plugin.DI.localStorage.setItem("stiff.devMode",!previous + "")
+    p.props.plugin.manager.get('stiff').repaint()
+  }
+  openFolder(){
+    shell.openItem(__dirname)
+  }
+  openFile(f){
+    shell.openItem(f)
+  }
+  rf(){
+    let dirname = path.join(__dirname, 'addons')
+    let addons = []
+    if(!fs.existsSync(dirname)) return
+    let files = fs.readdirSync(dirname)
+    files.forEach(function(filename) {
+      let f = path.join(dirname, filename)
+      if(filename.endsWith(".css")) {
+        let content = fs.readFileSync(f, 'utf-8')
+        let creator = content.match(/@creator:(.*)/)[1]
+        let name = content.match(/@name:(.*)/)[1]
+        addons.push({
+          file:f,
+          name,
+          creator,
+          type:"css"
+        })
+      }
+      else if(filename.endsWith(".less")) {
+        let content = fs.readFileSync(f, 'utf-8')
+        let creator = content.match(/@creator:(.*)/)[1]
+        let name = content.match(/@name:(.*)/)[1]
+        addons.push({
+          file:f,
+          name,
+          creator,
+          type:"less"
+        })
+      }
+    })
+    p.setState({cssAddons:addons})
+    return addons
+  }
+  componentWillMount(){
+    if(this.state.cssAddons.length == 0) this.rf()
+  }
   render () {
     const changelog = require('./changelog.json')
     id = window.discordID || "unknown"
     getUserImage(id)
-    
     let imageId = "udbImage" + id
         return (
           <div class="stiffSettingsPage">
+            <style>{".title-1pmpPr{display:none}"}</style>
             <div class="stiffHeaderImage"></div>
             <div onClick={() => this.setState({ currentPage: "info" })} class="stiffSelectorDiv info"></div>
             <div onClick={() => this.setState({ currentPage: "background" })} class="stiffSelectorDiv background"></div>
@@ -159,18 +216,31 @@ module.exports = class SettingsGeneral extends React.PureComponent {
             <div class="stiffPageWrapper" id="background">
               <div class="stiffImagePicker" id={imageId} onClick={ this.openImageChanger }></div>
               <div class="stiffInfoStrip">Click the image to change your user background image.</div>
-              {false?
-              <div class="stiffSwitchWrapper">Extend the userpopout all the way?
-                <div class="flexChild-1KGW5q switchEnabled-3CPlLV switch-3lyafC valueChecked-3Bzkbm value-kmHGfs sizeDefault-rZbSBU size-yI1KRe themeDefault-3M0dJU" style={{flex:" 0 0 auto",float:"right"}}>
-                  <input type="checkbox" onclick={this.clickUserSwitch} class="checkboxEnabled-4QfryV checkbox-1KYsPm" value={this.state.userSwitch?'on':'off'}></input>
+              <div class="stiffSwitchWrapper">Full page modals
+                <div class={p.props.plugin.DI.localStorage.getItem("stiff.pageDrag")  == 'true'?"flexChild-1KGW5q switchEnabled-3CPlLV switch-3lyafC valueChecked-3Bzkbm value-kmHGfs sizeDefault-rZbSBU size-yI1KRe themeDefault-3M0dJU":"flexChild-1KGW5q switchEnabled-3CPlLV switch-3lyafC value-kmHGfs sizeDefault-rZbSBU size-yI1KRe themeDefault-3M0dJU"} style={{flex:" 0 0 auto",float:"right"}}>
+                  <input type="checkbox" onClick={this.clickUserSwitch} class="checkboxEnabled-4QfryV checkbox-1KYsPm" value={this.state.userSwitch?'on':'off'}></input>
                 </div>
               </div>
-              :''}
+              <div class="stiffSwitchWrapper">Developer mode
+                <div class={p.props.plugin.DI.localStorage.getItem("stiff.devMode")  == 'true'?"flexChild-1KGW5q switchEnabled-3CPlLV switch-3lyafC valueChecked-3Bzkbm value-kmHGfs sizeDefault-rZbSBU size-yI1KRe themeDefault-3M0dJU":"flexChild-1KGW5q switchEnabled-3CPlLV switch-3lyafC value-kmHGfs sizeDefault-rZbSBU size-yI1KRe themeDefault-3M0dJU"} style={{flex:" 0 0 auto",float:"right"}}>
+                  <input type="checkbox" onClick={this.clickDevSwitch} class="checkboxEnabled-4QfryV checkbox-1KYsPm" value={this.state.devMode?'on':'off'}></input>
+                </div>
+              </div>
             </div>
             : '' }
-            {this.state.currentPage === "css" ?
+            {p.state.currentPage === "css" ?
             <div class="stiffPageWrapper" id="css">
-              <div class="stiffInfoStrip">Nothing here yet.</div>
+              <p class="stiffCTitle">CSS addons</p>
+              <div class="stiffUpdateButton" style={{background:'#ff9633',marginRight:'10px'}} ><a onClick={this.openFolder} >FOLDER</a></div>
+              <div class="stiffUpdateButton" style={{background:'#3ce9cc',marginRight:'100px'}} ><a onClick={() => {this.rf();p.props.plugin.manager.get('stiff').repaint()}} >REFRESH</a></div>
+              <div class="cssWrapper">
+              {this.state.cssAddons.map((u,i) => {
+                return (<div class="stiffCssItem">
+                  <div class="name">{u.name + " by " + u.creator}</div>
+                  <div class="stiffUpdateButton"  onClick={() => this.openFile(u.file)}><a target="_blank" rel="noreferrer noopener">EDIT</a></div>
+                </div>)
+              })}
+              </div>
             </div>
             : '' }
             { this.state.currentPage === "color" ?

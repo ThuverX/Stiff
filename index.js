@@ -3,8 +3,7 @@ const less = require('less')
 const fs = require('fs')
 const colorSort = require('color-sort')
 const https = require('https')
-
-const DEBUG = false
+const path = require('path')
 
 const getUserImage = (id) => {
   https.get({host:`udb.glitch.me`,port:443,path: `/api/v2/get?id=${id}`}, function (res) {
@@ -78,6 +77,41 @@ function checkForUpdate(c){
   })
 }
 
+function rf(){
+  let dirname = path.join(__dirname, 'addons')
+  let addons = []
+  if(!fs.existsSync(dirname)) return
+  let files = fs.readdirSync(dirname)
+  files.forEach(function(filename) {
+    let f = path.join(dirname, filename)
+    if(filename.endsWith(".css")) {
+      let content = fs.readFileSync(f, 'utf-8')
+      let creator = content.match(/@creator:(.*)/)[1]
+      let name = content.match(/@name:(.*)/)[1]
+      addons.push({
+        file:f,
+        name,
+        creator,
+        type:"css",
+        content
+      })
+    }
+    else if(filename.endsWith(".less")) {
+      let content = fs.readFileSync(f, 'utf-8')
+      let creator = content.match(/@creator:(.*)/)[1]
+      let name = content.match(/@name:(.*)/)[1]
+      addons.push({
+        file:f,
+        name,
+        creator,
+        type:"less",
+        content
+      })
+    }
+  })
+  return addons
+}
+
 let fadeIn
 const logCss = 'background:red;color:white;padding:2px;'
 const popoutBackground = ".header-3budic"
@@ -135,7 +169,7 @@ module.exports = class stiffv2 extends Plugin {
     this.repaint()
   }
 
-  repaint(){
+  repaint(silent = false){
     let id = document.querySelector('#app-mount > div.app-XZYfmp.platform-win > div > div.layers-20RVFW.flex-vertical.flex-spacer > div > div > div.flex-lFgbSz.flex-3B1Tl4.vertical-3X17r5.flex-3B1Tl4.directionColumn-2h-LPR.justifyStart-2yIZo0.alignStretch-1hwxMa.noWrap-v6g9vO.base-3AoPqv > div.flex-lFgbSz.flex-3B1Tl4.horizontal-2BEEBe.horizontal-2VE-Fw.flex-3B1Tl4.directionRow-yNbSvJ.justifyStart-2yIZo0.alignStretch-1hwxMa.noWrap-v6g9vO.spacer-3Dkonz > div.channels-3g2vYe.vertical-3X17r5.flex-3B1Tl4.directionColumn-2h-LPR > div.container-iksrDt > div.avatar-small')
     if(id) id = id.getAttribute("style").match(/\/avatars\/*.*\//g)
     if(id) id = id[0].replace(/(avatars|\/)/g,'')
@@ -144,8 +178,24 @@ module.exports = class stiffv2 extends Plugin {
     let color = this.DI.localStorage.getItem("stiff.color") || '#ef5350'
     if(this.DI.localStorage.getItem("stiff.pageDrag") == null)
       this.DI.localStorage.setItem("stiff.pageDrag",false)
+    
+    if(this.DI.localStorage.getItem("stiff.devMode") == null)
+      this.DI.localStorage.setItem("stiff.devMode",false)
     let pageDrag = this.DI.localStorage.getItem("stiff.pageDrag") || false
+
+    let DEBUG = this.DI.localStorage.getItem("stiff.devMode") == 'true' || false
     if(!DEBUG) fadeIn.className = "stiffFadeEffect stiffFadeActive"
+
+    let addons = null
+    if(!silent) addons = rf()
+    let cssString = ""
+    let lessString = ""
+    if(addons) addons.forEach((f) => {
+      if(f.type == "css")
+        cssString += "\n" + f.content
+      else
+        lessString += "\n" + f.content
+    })
 
     fs.readFile( __dirname + "/ts2.less", function (err, data) {
       let src = data.toString('utf8')
@@ -154,7 +204,7 @@ module.exports = class stiffv2 extends Plugin {
       let stiffStyle = document.createElement('style')
       stiffStyle.id = "stiffStyle"
 
-      less.render(input, function (e, output) {
+      less.render(input + lessString, function (e, output) {
         if(e) return console.error(e)
         stiffStyle.innerHTML = output.css
         let stiffElements = document.querySelectorAll("#stiffStyle")
@@ -166,6 +216,7 @@ module.exports = class stiffv2 extends Plugin {
         })
         fs.readFile( __dirname + "/style.css", function (err, data) {
           stiffStyle.innerHTML += data.toString('utf8').replace(/\#abab00ab/g,color)
+          stiffStyle.innerHTML += cssString
           document.body.prepend(stiffStyle)
           if(!DEBUG) setTimeout(() => fadeIn.className = "stiffFadeEffect stiffFadeToInActive", 500);
         })
@@ -175,8 +226,8 @@ module.exports = class stiffv2 extends Plugin {
 
   load(){
     let p = this
-    document.addEventListener ( "keydown" , function (zEvent) { if (zEvent.ctrlKey  &&  zEvent.altKey  &&  zEvent.code === "KeyT") { p.repaint( ) } } )
     this.registerSettingsTab('Stiff', require('./settingsPage'))
+    document.addEventListener ( "keydown" , function (zEvent) { if (zEvent.ctrlKey  &&  zEvent.altKey  &&  zEvent.code === "KeyT") { p.repaint() } } )
 
     let popoutsEl
     let modalsEl
@@ -254,17 +305,16 @@ module.exports = class stiffv2 extends Plugin {
       }
       firstObserver.disconnect()
     }, 5000)
-
+    /*
     if(DEBUG)
       fs.watch( __dirname + "/ts2.less",  (eventType, filename) => {
         if(eventType === "change")
           p.repaint()
       })
-
+    */
     document.body.addEventListener('click', (e) =>{
       isElement(e)
     })
-
   }
 
   unload() {
