@@ -187,73 +187,73 @@ module.exports = class SettingsGeneral extends React.PureComponent {
     if(this.state.cssAddons.length == 0) this.rf()
   }
   render () {
-    const changelog = require('./changelog.json')
+    let changelog = require('./changelog.json')
     id = window.discordID || "unknown"
     getUserImage(id)
     let imageId = "udbImage" + id
         return (
-          <div class="stiffSettingsPage">
+          <div className="stiffSettingsPage">
             <style>{".title-1pmpPr{display:none}"}</style>
-            <div class="stiffHeaderImage"></div>
-            <div onClick={() => this.setState({ currentPage: "info" })} class="stiffSelectorDiv info"></div>
-            <div onClick={() => this.setState({ currentPage: "background" })} class="stiffSelectorDiv background"></div>
-            <div onClick={() => this.setState({ currentPage: "color" })} class="stiffSelectorDiv color"></div>
-            <div onClick={() => this.setState({ currentPage: "css" })} class="stiffSelectorDiv css"></div>
-            <div class="stiffSelectorDiv fix"></div>
+            <div className="stiffHeaderImage"></div>
+            <div onClick={() => this.setState({ currentPage: "info" })} className="stiffSelectorDiv info"></div>
+            <div onClick={() => this.setState({ currentPage: "background" })} className="stiffSelectorDiv background"></div>
+            <div onClick={() => this.setState({ currentPage: "color" })} className="stiffSelectorDiv color"></div>
+            <div onClick={() => this.setState({ currentPage: "css" })} className="stiffSelectorDiv css"></div>
+            <div className="stiffSelectorDiv fix"></div>
             { this.state.currentPage === "info" ?
-            <div class="stiffPageWrapper" id="info">
-              <div class="stiffInfoStrip">
-              <div class="stiffUpdateButton"><a href="https://github.com/ThuverX/Stiff" target="_blank" rel="noreferrer noopener">Github</a></div>
-              <div class="stiffUpdateButton" style={{background:'#e62365',marginRight:'80px'}} ><a href="https://discord.gg/8T2rWM6" target="_blank" rel="noreferrer noopener">Discord</a></div>
-              <p class="stiffCTitle">{changelog.title}</p>
+            <div className="stiffPageWrapper" id="info">
+              <div className="stiffInfoStrip">
+              <div className="stiffUpdateButton"><a href="https://github.com/ThuverX/Stiff" target="_blank" rel="noreferrer noopener">Github</a></div>
+              <div className="stiffUpdateButton" style={{background:'#e62365',marginRight:'80px'}} ><a href="https://discord.gg/8T2rWM6" target="_blank" rel="noreferrer noopener">Discord</a></div>
+              <p className="stiffCTitle">{changelog.title}</p>
               {changelog.updates.map((u,i) => {
-                return <div class="stiffCVersions"><p class="version">v{u.version} {u.name} <p class="rdate">{u.releaseDate}</p></p><p>{u.text}</p></div>
+                return <div className="stiffCVersions" key={i.toString()} ><p className="version">v{u.version} {u.name} <a className="rdate">{u.releaseDate}</a></p><p>{u.text}</p></div>
               })}
             </div>
             </div>
             : '' }
             {this.state.currentPage === "background" ?
-            <div class="stiffPageWrapper" id="background">
-              <div class="stiffImagePicker" id={imageId} onClick={ this.openImageChanger }></div>
-              <div class="stiffInfoStrip">Click the image to change your user background image.</div>
-              <div class="stiffSwitchWrapper">Full page modals
-                <div class={p.props.plugin.DI.localStorage.getItem("stiff.pageDrag")  == 'true'?"flexChild-1KGW5q switchEnabled-3CPlLV switch-3lyafC valueChecked-3Bzkbm value-kmHGfs sizeDefault-rZbSBU size-yI1KRe themeDefault-3M0dJU":"flexChild-1KGW5q switchEnabled-3CPlLV switch-3lyafC value-kmHGfs sizeDefault-rZbSBU size-yI1KRe themeDefault-3M0dJU"} style={{flex:" 0 0 auto",float:"right"}}>
-                  <input type="checkbox" onClick={this.clickUserSwitch} class="checkboxEnabled-4QfryV checkbox-1KYsPm" value={this.state.userSwitch?'on':'off'}></input>
+            <div className="stiffPageWrapper" id="background">
+              <div className="stiffImagePicker" id={imageId} onClick={ this.openImageChanger }></div>
+              <div className="stiffInfoStrip">Click the image to change your user background image.</div>
+              <div className="stiffSwitchWrapper">Full page modals
+                <div className={p.props.plugin.DI.localStorage.getItem("stiff.pageDrag")  == 'true'?"flexChild-1KGW5q switchEnabled-3CPlLV switch-3lyafC valueChecked-3Bzkbm value-kmHGfs sizeDefault-rZbSBU size-yI1KRe themeDefault-3M0dJU":"flexChild-1KGW5q switchEnabled-3CPlLV switch-3lyafC value-kmHGfs sizeDefault-rZbSBU size-yI1KRe themeDefault-3M0dJU"} style={{flex:" 0 0 auto",float:"right"}}>
+                  <input type="checkbox" onClick={this.clickUserSwitch} className="checkboxEnabled-4QfryV checkbox-1KYsPm" value={this.state.userSwitch?'on':'off'}></input>
                 </div>
               </div>
-              <div class="stiffSwitchWrapper">Developer mode
-                <div class={p.props.plugin.DI.localStorage.getItem("stiff.devMode")  == 'true'?"flexChild-1KGW5q switchEnabled-3CPlLV switch-3lyafC valueChecked-3Bzkbm value-kmHGfs sizeDefault-rZbSBU size-yI1KRe themeDefault-3M0dJU":"flexChild-1KGW5q switchEnabled-3CPlLV switch-3lyafC value-kmHGfs sizeDefault-rZbSBU size-yI1KRe themeDefault-3M0dJU"} style={{flex:" 0 0 auto",float:"right"}}>
-                  <input type="checkbox" onClick={this.clickDevSwitch} class="checkboxEnabled-4QfryV checkbox-1KYsPm" value={this.state.devMode?'on':'off'}></input>
+              <div className="stiffSwitchWrapper">Developer mode
+                <div className={p.props.plugin.DI.localStorage.getItem("stiff.devMode")  == 'true'?"flexChild-1KGW5q switchEnabled-3CPlLV switch-3lyafC valueChecked-3Bzkbm value-kmHGfs sizeDefault-rZbSBU size-yI1KRe themeDefault-3M0dJU":"flexChild-1KGW5q switchEnabled-3CPlLV switch-3lyafC value-kmHGfs sizeDefault-rZbSBU size-yI1KRe themeDefault-3M0dJU"} style={{flex:" 0 0 auto",float:"right"}}>
+                  <input type="checkbox" onClick={this.clickDevSwitch} className="checkboxEnabled-4QfryV checkbox-1KYsPm" value={this.state.devMode?'on':'off'}></input>
                 </div>
               </div>
             </div>
             : '' }
             {p.state.currentPage === "css" ?
-            <div class="stiffPageWrapper" id="css">
-              <p class="stiffCTitle">CSS addons</p>
-              <div class="stiffUpdateButton" style={{background:'#ff9633',marginRight:'10px'}} ><a onClick={this.openFolder} >FOLDER</a></div>
-              <div class="stiffUpdateButton" style={{background:'#3ce9cc',marginRight:'100px'}} ><a onClick={() => {this.rf();p.props.plugin.manager.get('stiff').repaint()}} >REFRESH</a></div>
-              <div class="cssWrapper">
+            <div className="stiffPageWrapper" id="css">
+              <p className="stiffCTitle">CSS addons</p>
+              <div className="stiffUpdateButton" style={{background:'#ff9633',marginRight:'10px'}} ><a onClick={this.openFolder} >FOLDER</a></div>
+              <div className="stiffUpdateButton" style={{background:'#3ce9cc',marginRight:'100px'}} ><a onClick={() => {this.rf();p.props.plugin.manager.get('stiff').repaint()}} >REFRESH</a></div>
+              <div className="cssWrapper">
               {this.state.cssAddons.map((u,i) => {
-                return (<div class="stiffCssItem">
-                  <div class="name">{u.name + " by " + u.creator}</div>
-                  <div class="stiffUpdateButton"  onClick={() => this.openFile(u.file)}><a target="_blank" rel="noreferrer noopener">EDIT</a></div>
+                return (<div className="stiffCssItem" key={i.toString()} >
+                  <div className="name">{u.name + " by " + u.creator}</div>
+                  <div className="stiffUpdateButton"  onClick={() => this.openFile(u.file)}><a target="_blank" rel="noreferrer noopener">EDIT</a></div>
                 </div>)
               })}
               </div>
             </div>
             : '' }
             { this.state.currentPage === "color" ?
-            <div class="stiffPageWrapper" id="color">
-              <div class="pickerButton" onClick={this.clickPickerButton}></div>
-              <div class="stiffCustomColor">Custom color</div>
-              <div class="pickerButtonExit" style={{display:"none"}} onClick={ this.clickPickerExitButton}></div>
+            <div className="stiffPageWrapper" id="color">
+              <div className="pickerButton" onClick={this.clickPickerButton}></div>
+              <div className="stiffCustomColor">Custom color</div>
+              <div className="pickerButtonExit" style={{display:"none"}} onClick={ this.clickPickerExitButton}></div>
               <ChromePicker style={{display:"none"}} disableAlpha={true} onChange={this.handleColorChange} />
               <CirclePicker colors={colorList} onChange={ this.handleColorChangeComplete } />
-              <div class="stiffInfoStrip">Choose your Stiff color! This color will change how your theme looks!</div>
+              <div className="stiffInfoStrip">Choose your Stiff color! This color will change how your theme looks!</div>
             </div>
             : '' }
-            <div class="stiffInfoStrip">Press <b>CTRL + ALT + T</b> to refresh the styles.</div>
+            <div className="stiffInfoStrip">Press <b>CTRL + ALT + T</b> to refresh the styles.</div>
           </div>
         )
         

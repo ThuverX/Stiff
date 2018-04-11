@@ -188,13 +188,11 @@ module.exports = class stiffv2 extends Plugin {
 
     let addons = null
     if(!silent) addons = rf()
-    let cssString = ""
-    let lessString = ""
+    let cssString = `--color:${color};--pageDrag:${pageDrag? 1 : 0};--bgColor:#212121;\n`
+    let lessString = `@color:${color};@pageDrag:${pageDrag};@bgColor:#212121;\n`
     if(addons) addons.forEach((f) => {
-      if(f.type == "css")
-        cssString += "\n" + f.content
-      else
-        lessString += "\n" + f.content
+      if(f.type == "css") cssString += "\n" + f.content
+      else lessString += "\n" + f.content
     })
 
     fs.readFile( __dirname + "/ts2.less", function (err, data) {
@@ -203,22 +201,25 @@ module.exports = class stiffv2 extends Plugin {
 
       let stiffStyle = document.createElement('style')
       stiffStyle.id = "stiffStyle"
-
-      less.render(input + lessString, function (e, output) {
-        if(e) return console.error(e)
-        stiffStyle.innerHTML = output.css
-        let stiffElements = document.querySelectorAll("#stiffStyle")
-        stiffElements.forEach((el) => {
-          el.remove()
-        })
-        checkForUpdate((d) => {
-          stiffAlert(`<div class="stiffUpdateNotice">Stiff is out of date!<br/> Please update to v${d.new.version}</div>`,5000)
-        })
-        fs.readFile( __dirname + "/style.css", function (err, data) {
-          stiffStyle.innerHTML += data.toString('utf8').replace(/\#abab00ab/g,color)
-          stiffStyle.innerHTML += cssString
-          document.body.prepend(stiffStyle)
-          if(!DEBUG) setTimeout(() => fadeIn.className = "stiffFadeEffect stiffFadeToInActive", 500);
+      less.render(lessString,(err,add) => {
+        less.render(input, function (e, output) {
+          if(e) return console.error(e)
+          stiffStyle.innerHTML = output.css
+          if(err) {console.error(err); stiffAlert(`<div class="stiffUpdateNotice">Error in LESS code, check console for details!</div>`,5000)}
+          else stiffStyle.innerHTML += add.css
+          document.querySelectorAll("#stiffStyle").forEach((el) => {
+            el.remove()
+          })
+          checkForUpdate((d) => {
+            stiffAlert(`<div class="stiffUpdateNotice">Stiff is out of date!<br/> Please update to v${d.new.version}</div>`,5000)
+          })
+          fs.readFile( __dirname + "/style.css", function (err, data) {
+            stiffStyle.innerHTML += data.toString('utf8').replace(/\#abab00ab/g,color)
+            stiffStyle.innerHTML += lessString
+            stiffStyle.innerHTML += cssString
+            document.body.prepend(stiffStyle)
+            if(!DEBUG) setTimeout(() => fadeIn.className = "stiffFadeEffect stiffFadeToInActive", 500);
+          })
         })
       })
     })
