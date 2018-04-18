@@ -23,6 +23,13 @@
 	padding-top:20px;
 	padding-bottom:20px;
 }
+.stiffCode{
+	font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New !important;
+	text-align: left !important;
+	background: #2c3643;
+	padding:10px;
+	border-radius: 2px;
+}
 
 .stiffUpdateButton:hover a{
 	color:black !important;

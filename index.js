@@ -205,7 +205,23 @@ module.exports = class stiffv2 extends Plugin {
         less.render(input, function (e, output) {
           if(e) return console.error(e)
           stiffStyle.innerHTML = output.css
-          if(err) {console.error(err); stiffAlert(`<div class="stiffUpdateNotice">Error in LESS code, check console for details!</div>`,5000)}
+          if(err) {
+            console.error(err)
+            let start = err.extract[1].substring(0,err.column).length
+            let middle = Math.round(err.extract[1].substring(err.column).length/2)
+            let loc = start + middle - 1
+            loc = loc >= 1 ? loc : 3
+            stiffAlert(`<div class="stiffUpdateNotice">
+              <div class="stiffCode">Error in LESS code:<br/><br/>
+                ${err.message}<br/>${'-'.repeat(err.message.length+2)}<br/>
+                ${err.line-1}:${err.extract[0] || ""}<br/>
+                ${err.line}:${err.extract[1] || ""}<br/>
+                ${'&nbsp;'.repeat(loc)}^<br/>
+                ${err.line+1}: ...<br/>
+              </div><br/>
+            Check console for details!</div>`
+            ,10000)
+          }
           else stiffStyle.innerHTML += add.css
           document.querySelectorAll("#stiffStyle").forEach((el) => {
             el.remove()
@@ -291,14 +307,14 @@ module.exports = class stiffv2 extends Plugin {
       if(id) id = id[0].replace(/(avatars|\/)/g,'')
       if(id) window.discordID = id
       if(!popoutsEl){
-        popoutsEl = document.querySelector("#app-mount > .theme-dark.popouts")
+        popoutsEl = document.querySelector("#app-mount > .theme-dark.popouts-1TN9u9")
         if(popoutsEl){ 
           popoutsObserver.observe(popoutsEl,settings)
           console.log('%c[Stiff][Mutator] Popouts found (late!)',logCss)
         }
       }
       if(!modalsEl){
-        modalsEl = document.querySelector("#app-mount > .theme-dark:not(.popouts)")
+        modalsEl = document.querySelector("#app-mount > .theme-dark:not(.popouts-1TN9u9)")
         if(modalsEl){ 
           modalsObserver.observe(modalsEl,settings)
           console.log('%c[Stiff][Mutator] Modals found (late!)',logCss)
