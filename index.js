@@ -114,8 +114,8 @@ function rf(){
 
 let fadeIn
 const logCss = 'background:red;color:white;padding:2px;'
-const popoutBackground = ".header-3budic"
-const modalBackground = ".header-2Lg0Oe"
+const popoutBackground = ".header-2BwW8b"
+const modalBackground = ".header-QKLPzZ"
 module.exports = class stiffv2 extends Plugin {
   preload () {
     fadeIn = document.createElement('div')
@@ -170,7 +170,7 @@ module.exports = class stiffv2 extends Plugin {
   }
 
   repaint(silent = false){
-    let id = document.querySelector('#app-mount > div.app-XZYfmp.platform-win > div > div.layers-20RVFW.flex-vertical.flex-spacer > div > div > div.flex-lFgbSz.flex-3B1Tl4.vertical-3X17r5.flex-3B1Tl4.directionColumn-2h-LPR.justifyStart-2yIZo0.alignStretch-1hwxMa.noWrap-v6g9vO.base-3AoPqv > div.flex-lFgbSz.flex-3B1Tl4.horizontal-2BEEBe.horizontal-2VE-Fw.flex-3B1Tl4.directionRow-yNbSvJ.justifyStart-2yIZo0.alignStretch-1hwxMa.noWrap-v6g9vO.spacer-3Dkonz > div.channels-3g2vYe.vertical-3X17r5.flex-3B1Tl4.directionColumn-2h-LPR > div.container-iksrDt > div.avatar-small')
+    let id = document.querySelector('.container-2Thooq > .avatar-small')
     if(id) id = id.getAttribute("style").match(/\/avatars\/*.*\//g)
     if(id) id = id[0].replace(/(avatars|\/)/g,'')
     if(id != window.discordID) window.discordID = id
@@ -254,7 +254,7 @@ module.exports = class stiffv2 extends Plugin {
       mutations.forEach((mutation) => {
         if(!mutation.addedNodes[0] || !mutation.addedNodes[0].className.includes("popout")) return
         let el = mutation.addedNodes[0]
-        let id = el.querySelector(".image-EVRGPw")
+        let id = el.querySelector(".image-33JSyf")
         if(id) id = id.getAttribute("style").match(/\/avatars\/*.*\//g)
         if(id) id = id[0].replace(/(avatars|\/)/g,'')
         let bgEl = el.querySelector(popoutBackground)
@@ -269,7 +269,7 @@ module.exports = class stiffv2 extends Plugin {
       mutations.forEach((mutation) => {
         if(!mutation.addedNodes[0] || !mutation.addedNodes[0].className.includes("modal")) return
         let el = mutation.addedNodes[0]
-        let id = el.querySelector(".image-EVRGPw")
+        let id = el.querySelector(".image-33JSyf")
         if(id) id = id.getAttribute("style").match(/\/avatars\/*.*\//g)
         if(id) id = id[0].replace(/(avatars|\/)/g,'')
         let bgEl = el.querySelector(modalBackground)
@@ -285,7 +285,8 @@ module.exports = class stiffv2 extends Plugin {
       mutations.forEach((mutation) => {
         if(!mutation.addedNodes[0]) return
         mutation.addedNodes.forEach((node) => {
-          if(node.className === "theme-dark popouts"){
+          console.log(node.className)
+          if(node.className === "theme-dark popouts-3dRSmE"){
             console.log('%c[Stiff][Mutator] Popouts found',logCss)
             popoutsEl = node
             popoutsObserver.observe(node,settings)
@@ -302,19 +303,19 @@ module.exports = class stiffv2 extends Plugin {
     firstObserver.observe(document.querySelector("#app-mount"),settings)
 
     setTimeout(() => {
-      let id = document.querySelector('#app-mount > div.app-XZYfmp.platform-win > div > div.layers-20RVFW.flex-vertical.flex-spacer > div > div > div.flex-lFgbSz.flex-3B1Tl4.vertical-3X17r5.flex-3B1Tl4.directionColumn-2h-LPR.justifyStart-2yIZo0.alignStretch-1hwxMa.noWrap-v6g9vO.base-3AoPqv > div.flex-lFgbSz.flex-3B1Tl4.horizontal-2BEEBe.horizontal-2VE-Fw.flex-3B1Tl4.directionRow-yNbSvJ.justifyStart-2yIZo0.alignStretch-1hwxMa.noWrap-v6g9vO.spacer-3Dkonz > div.channels-3g2vYe.vertical-3X17r5.flex-3B1Tl4.directionColumn-2h-LPR > div.container-iksrDt > div.avatar-small')
+      let id = document.querySelector('.container-2Thooq > .avatar-small')
       if(id) id = id.getAttribute("style").match(/\/avatars\/*.*\//g)
       if(id) id = id[0].replace(/(avatars|\/)/g,'')
       if(id) window.discordID = id
       if(!popoutsEl){
-        popoutsEl = document.querySelector("#app-mount > .theme-dark.popouts-1TN9u9")
+        popoutsEl = document.querySelector("#app-mount > .theme-dark.popouts-3dRSmE")
         if(popoutsEl){ 
           popoutsObserver.observe(popoutsEl,settings)
           console.log('%c[Stiff][Mutator] Popouts found (late!)',logCss)
         }
       }
       if(!modalsEl){
-        modalsEl = document.querySelector("#app-mount > .theme-dark:not(.popouts-1TN9u9)")
+        modalsEl = document.querySelector("#app-mount > .theme-dark:not(.popouts-3dRSmE)")
         if(modalsEl){ 
           modalsObserver.observe(modalsEl,settings)
           console.log('%c[Stiff][Mutator] Modals found (late!)',logCss)

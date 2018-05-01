@@ -217,13 +217,13 @@ module.exports = class SettingsGeneral extends React.PureComponent {
               <div className="stiffImagePicker" id={imageId} onClick={ this.openImageChanger }></div>
               <div className="stiffInfoStrip">Click the image to change your user background image.</div>
               <div className="stiffSwitchWrapper">Full page modals
-                <div className={p.props.plugin.DI.localStorage.getItem("stiff.pageDrag")  == 'true'?"flexChild-1KGW5q switchEnabled-3CPlLV switch-3lyafC valueChecked-3Bzkbm value-kmHGfs sizeDefault-rZbSBU size-yI1KRe themeDefault-3M0dJU":"flexChild-1KGW5q switchEnabled-3CPlLV switch-3lyafC value-kmHGfs sizeDefault-rZbSBU size-yI1KRe themeDefault-3M0dJU"} style={{flex:" 0 0 auto",float:"right"}}>
-                  <input type="checkbox" onClick={this.clickUserSwitch} className="checkboxEnabled-4QfryV checkbox-1KYsPm" value={this.state.userSwitch?'on':'off'}></input>
+                <div className={(p.props.plugin.DI.localStorage.getItem("stiff.pageDrag")  == 'true'?"valueChecked-m-4IJZ":"valueUnchecked-2lU_20")+" flexChild-faoVW3 switchEnabled-V2WDBB switch-3wwwcV value-2hFrkk sizeDefault-2YlOZr size-3rFEHg themeDefault-24hCdX"} style={{flex:" 0 0 auto",float:"right"}}>
+                  <input type="checkbox" onClick={this.clickUserSwitch} className="checkboxEnabled-CtinEn checkbox-2tyjJg" value={this.state.userSwitch?'on':'off'}></input>
                 </div>
               </div>
               <div className="stiffSwitchWrapper">Developer mode
-                <div className={p.props.plugin.DI.localStorage.getItem("stiff.devMode")  == 'true'?"flexChild-1KGW5q switchEnabled-3CPlLV switch-3lyafC valueChecked-3Bzkbm value-kmHGfs sizeDefault-rZbSBU size-yI1KRe themeDefault-3M0dJU":"flexChild-1KGW5q switchEnabled-3CPlLV switch-3lyafC value-kmHGfs sizeDefault-rZbSBU size-yI1KRe themeDefault-3M0dJU"} style={{flex:" 0 0 auto",float:"right"}}>
-                  <input type="checkbox" onClick={this.clickDevSwitch} className="checkboxEnabled-4QfryV checkbox-1KYsPm" value={this.state.devMode?'on':'off'}></input>
+                <div className={(p.props.plugin.DI.localStorage.getItem("stiff.devMode")  == 'true'?"valueChecked-m-4IJZ":"valueUnchecked-2lU_20")+" flexChild-faoVW3 switchEnabled-V2WDBB switch-3wwwcV value-2hFrkk sizeDefault-2YlOZr size-3rFEHg themeDefault-24hCdX"} style={{flex:" 0 0 auto",float:"right"}}>
+                  <input type="checkbox" onClick={this.clickDevSwitch} className="checkboxEnabled-CtinEn checkbox-2tyjJg" value={this.state.devMode?'on':'off'}></input>
                 </div>
               </div>
             </div>
