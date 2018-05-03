@@ -70,6 +70,7 @@ function checkForUpdate(c){
       res.setEncoding('utf8')
       res.on('data', function (body) {
         const web = JSON.parse(body);
+        console.log("versions, current:",parseInt(current.version.replace(/\./g,'')),"web:", parseInt(web.version.replace(/\./g,'')))
         if(parseInt(current.version.replace(/\./g,'')) < parseInt(web.version.replace(/\./g,''))){
           c({old:current,new:web})
         }
