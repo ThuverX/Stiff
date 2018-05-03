@@ -27,22 +27,12 @@ Join the [Discord Server](https://discord.gg/8T2rWM6)!
 
 
 ## Screenshots
-![Settings page](https://u.lewd.se/wOzb02_5hK0203.png)
+![Settings page](https://cdn.discordapp.com/attachments/432192412236906498/432958694964199454/GQRLll_gPneLtA.png)
 
-Settings Page
+![Guild](https://cdn.discordapp.com/attachments/432192412236906498/432193593168625674/68747470733a2f2f752e6c6577642e73652f4868755845535f4c434f663843442e706e67.png)
 
-![Guild](https://u.lewd.se/HhuXES_LCOf8CD.png)
+![Create server](https://cdn.discordapp.com/attachments/432192412236906498/432193610528849940/68747470733a2f2f752e6c6577642e73652f52345677656e5f427275377257612e706e67.png)
 
-Guild view
+![User popout](https://cdn.discordapp.com/attachments/432192412236906498/432193627758919682/68747470733a2f2f752e6c6577642e73652f354d487236595f4d42303847464b2e706e67.png)
 
-![Create server](https://u.lewd.se/R4Vwen_Bru7rWa.png)
-
-Create/Join server modal
-
-![User popout](https://u.lewd.se/5MHr6Y_MB08GFK.png)
-
-User popout with custom background
-
-![User profile](https://u.lewd.se/33ukIC_LE6XwTZ.png)
-
-User profile with custom background
+![User profile](https://cdn.discordapp.com/attachments/432192412236906498/441563409352359936/8ebeUX_Ek4amba.png)
