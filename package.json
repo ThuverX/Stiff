@@ -1,5 +1,5 @@
 {
-  "name": "stiff",
+  "name": "di-plugin-stiff",
   "version": "0.9.6",
   "main": "index.js",
   "author": "thuverx",
