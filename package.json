@@ -1,15 +1,16 @@
 {
-  "name": "di-plugin-stiff",
-  "version": "0.9.6",
+  "name": "stiff-theme",
+  "version": "0.9.7",
   "main": "index.js",
   "author": "thuverx",
   "description": "Stiff is a theme for Discord.",
   "dependencies": {
     "color-sort": "0.0.1",
     "less": "^2.7.3",
-    "react-color": "^2.13.8",
-    "update-notifier": "^2.4.0"
+    "react-color": "^2.14.1",
+    "update-notifier": "^2.5.0"
   },
+  "scripts": {},
   "devDependencies": {},
   "license": "Apache-2.0",
   "repository": {
