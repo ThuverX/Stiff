@@ -2,8 +2,8 @@
   "name": "stiff",
   "version": "0.9.6",
   "main": "index.js",
-  "author": "ThuverX",
-  "description": "Stiff is a theme for Discord",
+  "author": "thuverx",
+  "description": "Stiff is a theme for Discord.",
   "dependencies": {
     "color-sort": "0.0.1",
     "less": "^2.7.3",
