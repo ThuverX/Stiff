@@ -1,28 +1,9 @@
 ![Stiff](https://u.lewd.se/tIS7o0_8VVLfDd.png)
 Stiff is aiming to be a material-like skin for Discord!
 
-For more info go to the new [website](https://stiff.glitch.me/)!
 
-Currently only works with Discord Injections.
-
-## Installation: 
-1. Place the files in `DiscordInjections/Plugins/Stiff`
-2. Run `npm install` in that folder
-3. Restart discord
-
-
-
-## Features:
-* Customizable colors
-* Display a image on your profile, that everybody can see!
-* Add your own CSS with CSS addons
-* \*Your feature here?\*
-* More coming soon!
-
-This is still a beta, if you find any bugs. Report them on github!
-
-OR
-Join the [Discord Server](https://discord.gg/8T2rWM6)!
+<a style="color:red;font-size:3rem;">This version is not maintained. And unstable. Please wait for a release version.</a>
+Join the [Discord Server](https://discord.gg/8T2rWM6) for updates.
 
 
 

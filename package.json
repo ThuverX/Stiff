@@ -3,7 +3,7 @@
   "version": "0.9.8",
   "main": "index.js",
   "author": "thuverx",
-  "description": "Stiff is a theme for Discord.",
+  "description": "This version of Stiff is unstable, please wait for release.",
   "dependencies": {
     "color-sort": "0.0.1",
     "less": "^2.7.3",
