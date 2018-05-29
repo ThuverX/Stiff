@@ -2,7 +2,7 @@
 Stiff is aiming to be a material-like skin for Discord!
 
 
-<a style="color:red;font-size:3rem;">This version is not maintained. And unstable. Please wait for a release version.</a>
+# This version is not maintained. And unstable. Please wait for a release version.
 Join the [Discord Server](https://discord.gg/8T2rWM6) for updates.
 
 
