@@ -1,0 +1,326 @@
+// main: ../Stiff.less
+// Activity page and layout
+
+@import "../include.less";
+
+@_lastLoadedModule:"ActivityPage";
+
+// :: Class decleration
+
+@activityFeed:activityFeed-28jde9;
+    @headerBar:headerBar-UHpsPw;
+    @scroller:scroller-2FKFPG;
+        @body:body-vr4WiF; 
+            @dock:dock-10JPBX;
+                @dockItem:dockItem-2kQDqg;
+                    @dockIcon:dockIcon-1aEfsH;
+                    @dockItemText:dockItemText-3qYREY;
+                    @dockItemPlay:dockItemPlay-3TGCWr;
+                        @contents:contents-18-Yxp;
+            @column:column-E5Tpw7;
+                @card:card-1KzkE6;
+                    @cardHeader:cardHeader-3nTWsD;
+                        @cardSplashArt:splashArt-3yFzRe;
+                        @headerContent:headerContent-2jLv9z;
+                        @headerActions:headerActions-3w_xT-;
+                    @cardBody:cardBody-3_HhbX;
+                        @section:section-2UZnnA;
+
+            @carouselWrapper:carousel-1Mb2Ud;
+                @carousel:carousel-2WxMes; @smallCarousel:smallCarousel-3UDi9v;
+                    @carouselArticle:article-3kb3qm;
+                        @carouselArticleBackground:background-1ri_HN;
+                        @applicationArea:applicationArea-2uu5xp;
+                        @details:details-2ERYl-;
+                            @title:title-3gWYEg;
+                            @description:description-1CCuDd;
+                            @timestamp:timestamp-JB3BQ5;
+                @pagination:pagination-1GYdtQ;
+                    @paginationItem:paginationItem-2lUq0s;
+                    @selectedPage:selectedPage-3cFHgU;
+                        @splashArt:splashArt-3I5Qmp;
+                        @paginationText:paginationText-1V79RW;
+                            @paginationTitle:paginationTitle-3U5ymz;
+                            @paginationSubtitle:paginationSubtitle-12e1s6;
+
+
+            @headerText:headerText-2niCs_;
+            
+// ;; Class decleration
+
+@keyframes spawnCarouselItem{
+    0%{
+        transform: scale(2);
+        filter: blur(50px);
+    }
+}
+
+@keyframes spawnCarouselItemInfo{
+    0%{
+        transform: translateY(-40%);
+    }
+}
+
+
+@keyframes spawnGameItem{
+    0%{
+        transform: translateY(-50%);
+        opacity: 0;
+    }
+}
+
+.@{activityFeed} {
+    background:#212121 !important;
+    .@{headerBar} {
+        height:0px !important;
+    }
+    & > div > div > .@{scroller}{
+        &:after{
+            content:'';
+            position: absolute;
+            left:0;
+            top:0;
+            width:100%;
+            height:100%;
+            box-shadow: inset 0px 0px 50px 1px rgba(0,0,0,0.45);
+            pointer-events: none;
+        }
+        padding:0 !important;
+        margin:0 !important;
+        .@{body}{
+            .@{dock}{
+                flex-wrap: wrap;
+                margin-left:20px !important;
+                margin-right:20px !important;
+                width:~"calc(100% - 40px)" !important;
+                .@{dockItem} {
+                    & when (@animateAll = true){animation: spawnGameItem .2s cubic-bezier(1,0,0,1)};
+                    background: #1c1c1c !important;
+                    border-radius: 0 !important;
+                    margin:0 !important;
+                    padding:0 !important;
+                    width:240px !important;
+                    display: inline-block !important;
+                    height:120px !important;
+                    margin-left:21px !important;
+                    margin-top:21px !important;
+                    box-shadow: 0px 10px 41px 0px rgba(0,0,0,0.15);
+                    .@{dockItemText}{
+                        position: absolute;
+                        left:20px;
+                        top:0px;
+                        width:200px;
+                        height:40px;
+                        display: block !important;
+                        z-index:120;
+                        line-height:40px;
+                        font-size:13px;
+                        transition: all .1s;
+                        &:after{
+                            content:'';
+                            position: absolute;
+                            left:50%;
+                            transform: translateX(-50%);
+                            bottom:0;
+                            width:100%;
+                            height:1px;
+                            background: rgba(255,255,255,0.6);
+                            transition: width .1s;
+                        }
+                    }
+                    &:hover{
+                        .@{dockItemText} {
+                            &:after{
+                                width:90%;
+                            }
+                        }
+                        .@{dockItemPlay}{
+                            transform: scale(1);
+                            opacity: 1;
+                        }
+                        .@{dockIcon} {
+                            opacity: .3;
+                        }
+                    }
+                    .@{dockItemPlay}{
+                        transition: all .15s;
+                        position: absolute;
+                        right:100px;
+                        bottom:25px;
+                        z-index:120;
+                        width:30px;
+                        overflow: hidden;
+                        background: white;
+                        transform: scale(1.6);
+                        opacity: 0;
+                        clip-path: polygon(90% 50%, 10% 0, 10% 100%);
+                        height:30px;
+                        min-height:30px;
+                        min-width:30px;
+                        border-radius: 0px;
+                        display: block !important;
+                        .@{contents} {
+                            display: none;
+                        }
+                    }
+                    .@{dockIcon}{
+                        position: absolute;
+                        left:0;
+                        top:0;
+                        width:0;
+                        height:0;
+                        z-index:20;
+                        &:after{
+                            content:'';
+                            position: absolute;
+                            left:60px;
+                            top:20px;
+                            width:120px;
+                            height:120px;
+                            background: inherit;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            background-size:60px;
+                            overflow: hidden;
+                        }
+                    }
+                    position: relative;
+                }
+            }
+            overflow-x: hidden !important;
+            .@{headerText} {
+                margin-left:20px;
+                padding-bottom:10px;
+                width:100% !important;
+                margin-right:20px;
+                border-bottom:1px solid rgba(255,255,255,0.6);
+            }
+            width:100% !important;
+            max-width: unset !important;
+            padding:0 !important;
+            margin:0 !important;
+            & > div:nth-child(1){
+                position: relative;
+                margin:0 !important;
+                padding:0 !important;
+                width:100% !important;
+                height:600px !important;
+                .@{carouselWrapper}{
+                    border-radius: 0 !important;
+                    margin:0 !important;
+                    padding:0 !important;
+                    .@{carousel}, .@{smallCarousel}{                        
+                        border-radius: 0 !important;
+                        width:100% !important;
+                        position: absolute;
+                        left:0;
+                        top:0;
+                        height:500px;
+                        .@{carouselArticle} {
+                            border-radius: 0 !important;
+                            height:100% !important;
+                            position: relative;
+                            transform: none !important;
+                            animation: spawnCarouselItem .3s;
+                            left:0 !important;
+                            width:100% !important;
+                            opacity: 1 !important;
+                            .@{carouselArticleBackground} {
+                                transform: none !important;
+                                bottom:0 !important;
+                                height:100% !important;
+                                mask:none !important;
+                                -webkit-mask:none !important;
+                                transition: transform .2s;
+                                background-position: center !important;
+                            }
+                            
+                            &:hover .@{carouselArticleBackground}{
+                                transform: scale(1.1) !important;
+                                
+                            }
+                            & > div:not(.@{carouselArticleBackground}){
+                                transition: box-shadow .2s;
+                                animation: spawnCarouselItemInfo .6s;
+                                position: absolute;
+                                left:5px;
+                                top:5px;
+                                padding:15px !important;
+                                background: rgba(0,0,0,0.5);
+                                bottom:unset;
+                                transform: none !important;
+                                opacity: 1 !important;
+                                *{color:white !important;}
+                                width:~"calc(100% - 40px)" !important;
+                                .@{details} {
+                                    .@{timestamp} {
+                                        position: absolute;
+                                        right:0;
+                                        top:-29px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .@{pagination}{
+                        box-shadow: 0px 10px 41px 0px rgba(0,0,0,0.15);
+                        width:100% !important;
+                        position: absolute;
+                        left:0;
+                        top:500px;
+                        margin:0 !important;
+                        padding:0 !important;
+                        height:90px !important;
+                        .@{paginationItem}{
+                            &:not(.@{selectedPage}):hover{
+                                transition: padding .2s;
+                                padding-top:20px;
+                                .@{paginationSubtitle}{
+                                    bottom:17px;
+                                }
+                                
+                            }
+                            &:hover:before,&.@{selectedPage}:before{
+                                width:100%;
+                            }
+                            &:before{
+                                content:'';
+                                position: absolute;
+                                left:50%;
+                                top:0;
+                                width:0%;
+                                height:5px;
+                                background: white;
+                                border-radius: 0;
+                                z-index:200;
+                                transform: translateX(-50%);
+                                transition: width .2s;
+                            }
+                            height:91px !important;
+                            margin:0 !important;                            
+                            border-radius: 0 !important;
+                            width:~"calc(100% / 4)" !important;
+                            display: inline-block !important;
+                            background:darken(#212121,2%) !important;
+                            border:none !important;
+                            .@{paginationText} {
+                                background: transparent !important;
+                            }
+                            .@{paginationSubtitle} {
+                                position: absolute;
+                                left:16px;
+                                transition: bottom .2s;
+                                bottom:15px;
+                            }
+                            *{color:white !important}
+                            &:after,.@{splashArt}{
+                                display: none !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}

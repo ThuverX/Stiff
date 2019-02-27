@@ -1,0 +1,81 @@
+// main: ../Stiff.less
+// TitleBar elements like wordmark and winbuttons
+
+@import "../include.less";
+
+@_lastLoadedModule:"Winbar";
+
+// :: Class decleration
+
+@titleBar:titleBar-AC4pGV;
+    @wordmark:wordmark-2iDDfm;
+    @winButton:winButton-iRh8-Z;
+    @winButtonClose:winButtonClose-1HsbF-;
+        @name_TitleBarClose:TitleBarClose;
+    @winButtonMinMax:winButtonMinMax-PBQ2gm;
+        @name_TitleBarMaximize:TitleBarMaximize;
+        @name_TitleBarMinimize:TitleBarMinimize;
+
+// ;; Class decleration
+
+.@{titleBar} {
+    position: absolute;
+    left:10vw;
+    top:0;
+    width:80vw;
+    margin:0 !important;
+    padding:0 !important;
+    & > .@{wordmark} {
+        display: none;
+    }
+
+    & > .@{winButton} {
+        position: absolute;
+        margin:0 !important;
+        padding:0 !important;
+        left:~"calc(-10vw - 1px)";
+        top:2px;
+        background: transparent !important;
+        opacity: 1;
+        cursor:default;
+        svg{
+            position: absolute;
+            margin:0 !important;
+            padding:0 !important;
+            left:0;
+            top:0;
+            width:70px/3;
+            height:70px/3;
+            border-radius: 100%;
+            transform: scale(0.6);
+            cursor:pointer;
+
+            box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
+
+            &:hover{
+                box-shadow: 0px 0px 15px 0px white;
+            }
+
+            &[name="@{name_TitleBarClose}"]{
+                background: #fc5753;
+                z-index:1000;
+            }
+
+            &[name="@{name_TitleBarMinimize}"]{
+                background: #fdbc40;
+                z-index:998;
+                left:70px / 3 !important;
+            }
+
+            &[name="@{name_TitleBarMaximize}"]{
+                background: #33c748;
+                z-index:999;
+                left:70px / 3 * 2 !important;
+            }
+
+            *{
+                display: none !important;
+            }
+        }
+    }
+}

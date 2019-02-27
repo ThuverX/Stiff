@@ -1,0 +1,241 @@
+// main: ../Stiff.less
+// This file contains guildBar, guildIcon and other guildBar related elements;
+
+@import "../include.less";
+
+@_lastLoadedModule:"Guildbar";
+
+// :: Class decleration
+
+@guildsWrapper:guildsWrapper-5TJh6A;
+    @unreadMentionsIndicatorTop:unreadMentionsIndicatorTop-gA6RCh;
+        @unreadMentionsBar:bar-30k2ka;
+    @unreadMentionsIndicatorBottom:unreadMentionsIndicatorBottom-BXS58x;
+    @scrollerWrap:scrollerWrap-1IAIlv;
+        @guilds:guilds-1q_RqH;
+            @guild_dms:dms-rcsEnV;
+                @dms_video:video-15yGu3;
+            @guildSeparator:guildSeparator-1X4GQ1;
+            @friendsOnline:friendsOnline-_wi_fM;
+            @guild:guild-1EfMGQ;
+                @guild_badge:badge-1GsMF2;
+                @guild_selected:selected-ML3OIq;
+                @guild_add:guildsAdd-21_IdK;
+                    @guild_add_inner:guildsAddInner-1KMFy-;
+                @guild_unread:unread-qLkInr;
+                @guildInner:guildInner-3DSoA4;
+                    @guild_small:small-5Os1Bb;
+                    @name_Discord:Discord;
+                    @guildIcon:guildIcon-CT-ZDq;
+
+
+@_id_groupNoIcon:f046e2247d730629309457e902d5c5b3;
+// ;; Class decleration
+
+@keyframes guild_select{
+    0%{
+        left:-90px;
+    }
+    100%{
+        left:-21px;
+    }
+}
+
+@keyframes guild_hover{
+    0%{
+        border-width: 0px;
+        left:0;
+    }
+}
+
+.@{guildsWrapper} {
+    border-radius: 0 !important;
+    padding-top:25px !important;
+    background: @mainColor !important;
+
+    .@{unreadMentionsIndicatorTop} {
+        top:25px !important;
+        margin:0 !important;
+        padding:0 !important;
+        height:30px;
+    }
+
+    .@{unreadMentionsIndicatorBottom} {
+        bottom:0 !important;
+        margin:0 !important;
+        padding:0 !important;
+        height:30px;
+    }
+
+    .@{unreadMentionsBar} {
+        margin:0 !important;
+        padding:0 !important;
+        width:70px;
+        height:20px;
+        border-radius: 0 !important;
+        padding-top:5px !important;
+        padding-bottom:5px !important;
+    }
+
+    .@{guilds}{
+        .@{friendsOnline}{
+            color:white !important;
+        }
+        .@{guildSeparator} {
+            background: white;
+            opacity: 0.6;
+            height:1px !important;
+            &:after{
+                display: none;
+            }
+        }
+        .@{dms_video} .@{guildInner}:after {
+            z-index:500;
+        }
+        .@{guild} {
+
+            position: relative;
+
+            &.@{guild_add} {
+                background: transparent;
+                border:none !important;
+                .@{guild_add_inner} {
+                    color:white !important;
+                }
+            }
+
+            &.@{guild_selected}:not(:first-child), &.@{guild_unread} {
+                &:before {
+                    position: absolute;
+                    left:-21px;
+                    top:0;
+                    height:50px;
+                    width:70px;
+                    margin:0 !important;
+                    border-radius: 0px 25px 25px 0px;
+                    background: white !important;
+                    pointer-events: none;
+
+                    animation: guild_select .4s;
+                }
+
+                .@{guildInner} {
+                    background: white !important;
+                    .@{guildIcon} {
+                        color:@mainColor !important;
+                    }
+                }
+            }
+
+            & > .@{guild_badge}{
+                position: absolute;
+                left:-7px;
+                top:-7px;
+                height:50px;
+                width:50px;
+                margin:0 !important;
+                padding:0 !important;
+                border-radius: 100%;
+                background: transparent !important;
+                border:7px solid rgba(255, 255, 255, 0.4);
+                color:transparent !important;
+
+                &:after{
+                    position: absolute;
+                    left:-3px;
+                    top:-3px;
+                    width:50px;
+                    height:50px;
+                    border-radius: 100%;
+                    border:3px solid rgba(255, 255, 255, 0.4);
+                    content:'';
+                }
+            }
+
+            &.@{guild_selected}:first-child{
+                &:before,&:after{
+                    transition: border .2s;
+                }
+                &:not(:hover):before,&:not(:hover):after{
+                    border-color:transparent !important;
+                }
+            }
+
+            &.@{guild_selected}:first-child:before{
+                display: none !important;
+            }
+            &.@{guild_selected}:first-child, &:not(.@{guild_selected}):hover{
+                transition: background .2s;
+                position: relative;
+                .@{guildInner} {
+                    background: white !important;
+                    .@{guildIcon} {
+                        color:@mainColor !important;
+                    }
+                }
+                &:after{
+                    position: absolute;
+                    left:-7px;
+                    top:-7px;
+                    height:50px;
+                    width:50px;
+                    margin:0 !important;
+                    padding:0 !important;
+                    border-radius: 100%;
+                    background: transparent !important;
+                    border:7px solid rgba(255, 255, 255, 0.4);
+                    content:'';
+
+                    animation: guild_hover .2s cubic-bezier(.17,.67,.22,1.38);
+                    pointer-events: none;
+                }
+                &:not(.@{guild_unread}):before{
+                    position: absolute;
+                    left:-3px;
+                    top:-3px;
+                    width:50px;
+                    height:50px;
+                    border-radius: 100%;
+                    border:3px solid rgba(255, 255, 255, 0.4);
+                    content:'';
+                    
+                    animation: guild_hover .2s;
+                    pointer-events: none;
+                }
+                .@{guild_small} a[style*="@{_id_groupNoIcon}"]{
+                    background: @mainColor !important;
+                    -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-group-24px.svg) center/40px no-repeat;
+                    border-radius: 100%;
+                }
+            }
+            
+            .@{guildInner} {
+                z-index:41;
+                transition: background .4s;
+                background: transparent !important;
+                border-radius: 100% !important;
+                .@{guildIcon} {
+                    z-index:41;
+                    overflow: hidden;
+                    border-radius: 100% !important;
+                }
+                .@{guild_small} a[style*="@{_id_groupNoIcon}"]{
+                    background: white !important;
+                    -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-group-24px.svg) center/40px no-repeat;
+                }
+            }
+
+            &:first-child{
+                &:hover svg[name="@{name_Discord}"] use,&.@{guild_selected} svg[name="@{name_Discord}"] use{
+                    fill:@mainColor;
+                }
+                svg[name="@{name_Discord}"]{
+                    z-index:44;
+                    use{
+                        fill:white;
+                    }
+                }
+            }
+        }
+    }
+}

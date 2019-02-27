@@ -1,0 +1,144 @@
+// main: ../Stiff.less
+// MemberList in guild
+
+@import "../include.less";
+
+@_lastLoadedModule:"MemberList";
+
+// :: Class decleration
+
+
+@memberListWrapperUpper:membersWrap-2h-GB4;
+@memberListWrapper:members-1998pB;
+    @membersGroup:membersGroup-v9BXpm;
+    @memberItem:member-3W1lQa;
+
+        @memberItemOnline:memberOnline-1CIh-0;
+        @memberItemOffline:memberOffline-2lN7gt;
+
+            @memberItemContent:content-OzHfo4;
+                @memberItemAvatarWrapper:avatarWrapper-3B0ndJ;
+                    @memberItemAvatarWrapperInner:wrapper-2F3Zv8;
+                        @memberItemAvatarWrapperInnerImage:image-33JSyf;
+                @memberItemInner:memberInner-2CPc3V;
+                    @memberNameTag:nameTag-m8r81H;
+                        @memberNameTagUser:username-1cB_5E;
+                        @memberActivityText:activityText-sLG0UL;
+
+// ;; Class decleration
+
+@keyframes spawnMemberItem{
+    0%{
+        transform: translateY(-50%);
+        opacity: 0;
+    }
+}
+.@{memberListWrapperUpper}{
+    &:before{
+        content:'';
+        position: absolute;
+        left:0;
+        top:-500px;
+        height:500px;
+        width:100%;
+        background:lighten(@mainColor,2%) !important;
+    }
+    position: relative;
+}
+
+.memberListVisibility(){
+    span{
+        overflow: visible !important;
+    }
+    //.memberListVisibilityColorLoop(255,@mainColor);
+}
+
+.memberListVisibilityColorLoop(@i,@color) when (@i > 0){
+    @r:red(@color) - @i;
+    @g:green(@color);
+    @b:blue(@color);
+    &[style="color: rgb(@{r},@{g},@{b});"]{
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+        background: red;
+    }
+    &[style="color: rgb(@{r},@{g},@{b});"]{
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+        background: red;
+    }
+    &[style="color: rgb(@{r},@{g},@{b});"]{
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+        background: red;
+    }
+    .memberListVisibilityColorLoop(@i - 1,@color)
+}
+
+.@{memberListWrapper}{
+    padding-top:50px !important;
+    background:lighten(@mainColor,2%) !important;
+    .@{membersGroup}{
+        & when (@animateAll = true){animation: spawnMemberItem .2s cubic-bezier(1,0,0,1)};
+        color:white !important;
+        padding-bottom:7px !important;
+        margin-bottom:5px !important;
+        margin-right:15px !important;
+        text-align:right !important;
+        padding:0 !important;
+        padding-top:5px !important;
+        padding-bottom:7px !important;
+        position: relative;
+        &:after{
+            content:'';
+            width:~"calc(100% - 10px)";
+            height:1px;
+            position: absolute;
+            background: rgba(255,255,255,0.6);
+            left:15px;
+            bottom:0;
+        }
+    }
+    .@{memberItem}{
+        & when (@animateAll = true){animation: spawnMemberItem .2s cubic-bezier(1,0,0,1)};
+        background: transparent !important;
+        border-radius: 0 !important;
+        margin:0 !important;
+        padding:0 !important;
+        .@{memberItemContent}{
+            background: transparent !important;
+            color:white !important;
+            padding-left:20px !important;
+            padding-top:10px !important;
+            padding-bottom:10px !important;
+            margin:0 !important;
+            .@{memberNameTag}{
+                .memberListVisibility()
+            }
+            .@{memberActivityText}{
+                color:white !important;
+            }
+            svg[name="RichActivity"]{
+                path{
+                    fill:white !important;
+                }
+            }
+        }
+        &:hover,&.popout-open{
+            .@{memberItemContent}{
+                background: white !important;
+                color:black !important;
+                .@{memberNameTag}{
+                    color:black !important;
+                    text-shadow: none !important;
+                }
+                .@{memberActivityText}{
+                    color:black !important;
+                }
+                svg[name="RichActivity"]{
+                    path{
+                        fill:black !important;
+                    }
+                }
+            }
+        }
+        
+    }
+}

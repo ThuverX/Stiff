@@ -1,0 +1,376 @@
+// main: ../Stiff.less
+// Changes user profiles. (The modal, not the popout)
+
+@import "../include.less";
+
+@_lastLoadedModule:"UserProfile";
+
+// :: Class decleration
+
+@modalBackdrop:backdrop-1wrmKB;
+@modalMain:modal-1UGdnR;
+    @modalInner:inner-1JeGVc;
+        @modalInnerRoot:root-SR8cQa;
+
+            @userProfileTopSectionAny:~'div[class*="topSection"]';
+            @userProfileTopSectionPlaying:topSectionPlaying-1J5E4n;
+            @userProfileTopSectionSpotify:topSectionSpotify-1lI0-P;
+            @userProfileTopSectionNormal:topSectionNormal-2-vo2m;
+
+                @userProfileTopSection_HeaderFill:headerFill-adLl4x;
+                @userProfileTabBarContainer:tabBarContainer-1s1u-z;
+                    @userProfileTabBarContainerTabBar:tabBar-2MuP6-;
+                        @userProfileTabBarContainerTabBarItem:item-PXvHYJ;
+                @userProfileTopSection_Header:header-QKLPzZ;
+
+                    @userProfileActionButton:actionButton-3W1xZa;
+                    @userProfileActionButtonAlternate:buttonInvertedPurple-WtBglX;
+
+                    @userProfileAdditionalActionsIcon:additionalActionsIcon-1FoUlE;
+                    @userProfileInner:wrapper-2F3Zv8;
+                        @userProfileInnerImage:image-33JSyf;
+                    @userProfileInfo:headerInfo-30uryT;
+                        @userProfileInfoBadges:profileBadges-2vWUYb;
+                        @userProfileInfoNameTag:nameTag-2IFDfL;
+
+            @userProfileBody:body-3ND3kc;
+                @userProfileBodyUserInfoSection:userInfoSection-2acyCx;
+                    @userProfileBodyUserInfoSectionConnectedAccounts:connectedAccounts-repVzS;
+                        @userProfileBodyUserInfoSectionConnectedAccount:connectedAccount-36nQx7;
+                            @userProfileBodyUserInfoSectionConnectedAccountIcon:connectedAccountIcon-3P3V6F;
+                            @userProfileBodyUserInfoSectionConnectedAccountOpenIcon:connectedAccountOpenIcon-2cNbq5;
+                            @userProfileBodyUserInfoSectionConnectedAccountVerifiedIcon:connectedAccountVerifiedIcon-3aZz_K;
+                    @userProfileBodyUserInfoSectionHeader:userInfoSectionHeader-CBvMDh;
+                    @userProfileBodyUserInfoSectionNote:note-3kmerW;
+                    @userProfileBodyListScroller:listScroller-2_vlfo;
+                        @userProfileBodyListScrollerEmptyFriends:emptyIconFriends-BrjhY9;
+                        @userProfileBodyListScrollerRow:listRow-hutiT_;
+
+// ;; Class decleration
+
+@keyframes slideInRight {
+    0%{
+        right:-120%;
+    }
+}
+
+@keyframes slideInLeft {
+    0%{
+        left:-120%;
+    }
+}
+
+.@{modalMain} {
+    animation: none !important;
+    transform: none !important;
+    
+}
+
+.@{modalBackdrop} {
+    & when (@userProfilePosition = "fullscreen") {
+        &:after{
+            content:'';
+            position: absolute;
+            right:20px;
+            top:20px;
+            width:50px;
+            height:50px;
+            -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-close-24px.svg) center/contain no-repeat;
+            background: white;
+            transition: background .2s;
+            z-index:9999;
+        }
+        cursor:pointer !important;
+    }
+}
+
+@keyframes spawnContainer{
+    0%{
+        transform: translateY(50%);
+        opacity: 0;
+    }
+}
+
+.@{modalInner} {
+    border-radius: 0 !important;
+    .@{modalInnerRoot}{
+        border-radius: 0 !important; 
+        overflow: visible;
+        & when not (@userProfilePosition = "fullscreen") {
+            width:800px !important;
+            @{userProfileTopSectionAny} {
+                position: relative;
+                background: #212121 !important;
+                .@{userProfileTopSection_HeaderFill} {
+                    background: lighten(#212121,2%) !important;
+                }
+                .@{userProfileTabBarContainer} {
+                    padding:0 !important;
+                    border:none !important;
+                    height:40px !important;
+                    background: white !important;
+                    *{color:black !important;}
+                    .@{userProfileTabBarContainerTabBar} {
+                        border:none !important;
+                        margin-top:-2px !important;
+                        height:40px !important;
+                        .@{userProfileTabBarContainerTabBarItem} {
+                            height:40px !important;
+                            border:none !important;
+                            margin:0 !important;
+                            padding-left:20px !important;
+                            padding-right:20px !important;
+                            transition: all .2s;
+                            &:hover, &.selected {
+                                color:white !important;
+                                background: lighten(@mainColor,2%) !important;
+                            }
+                        }
+                    }
+                }
+                .@{userProfileTopSection_Header} {
+                    padding:0 !important;
+                    height:300px !important;
+                    .@{userProfileActionButton}, .@{userProfileActionButtonAlternate}{
+                        position: absolute;
+                        right:10px;
+                        top:10px;
+                        background: white !important;
+                        color:black !important;
+                        border-radius: 0 !important;
+                        height:30px !important;
+                        min-height:30px !important;
+                        font-weight: 600 !important;
+                        line-height:30px !important;
+                        transition: background .2s;
+                        & > div{
+                            margin-top:-2px !important
+                        }
+                        &:hover{
+                            background: @mainColor !important;
+                            color:white !important;
+                        }
+                    }
+                    & > div[role="button"] {
+                        & > .@{userProfileAdditionalActionsIcon}{
+                            border-radius: 100%;
+                            position: absolute;
+                            left:0px;
+                            top:~"calc(300px - 40px)";
+                            width:30px;
+                            height:30px;
+                            background: white;
+                            transition: background .2s;
+                            cursor:pointer;
+                            &:hover{
+                                background: @mainColor !important;
+                                &:after{
+                                    background:white !important;
+                                    transform: rotate(90deg) !important;
+                                }
+                            }
+                            &:after{
+                                content:'';
+                                position: absolute;
+                                left:0;
+                                top:0;
+                                width:100%;
+                                height:100%;
+                                background: black;
+                                transition: all .2s;
+                                -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-settings-20px.svg) center/22px no-repeat;
+                            }
+                        }
+                    }
+                    height:300px !important;
+                    .@{userProfileInner} {
+                        position: absolute;
+                        left:10px;
+                        top:10px;
+                        margin:0 !important;
+                        padding:0 !important;
+                        z-index:8;
+                        border:2px solid white;
+                        .@{userProfileInnerImage} {
+                            background-color: white !important;
+                            -webkit-mask:none !important;
+                        }
+                    }
+                    .@{userProfileInfo} {
+                        position: absolute;
+                        left:55px;
+                        top:10px;
+                        .@{userProfileInfoBadges} {
+                            position: absolute;
+                            top:30px;
+                            left:60px;
+                            * {
+                                filter:brightness(100) contrast(100) drop-shadow(0 0 3px rgba(0,0,0,0.3)) !important;
+                            }
+                        }
+                        .@{userProfileInfoNameTag} {
+                            color:black !important;
+                            *{color:black !important;}
+                            background:white !important;
+                            padding-left:50px !important;
+                            height:30px !important;
+                            line-height:30px !important;
+                            &:after{
+                                content:'';
+                                position: absolute;
+                                top:0;
+                                right:-14px;
+                                width:15px;
+                                height:30px;
+                                background: inherit;
+                                z-index:2;
+                                -webkit-clip-path: polygon(0 0, 100% 0, 10% 100%, 0% 100%);
+                            }
+                        }
+                    }
+                }
+            }
+            &:after{
+                content:'';
+                position: absolute;
+                left:0;
+                top:-100vh;
+                height:300vh;
+                width:100%;
+                background: @mainColor;
+                z-index:-1;
+                box-shadow: 0px 0px 40px 0px rgba(0,0,0,0.2) !important;
+            }
+            .@{userProfileBody} {
+                .@{userProfileBodyListScroller} {
+                    .@{userProfileBodyListScrollerEmptyFriends} {
+                        filter:brightness(0) invert(1);
+                    }
+                    .@{userProfileBodyListScrollerRow}{
+                        background: transparent !important;
+                        &:hover{
+                            background: white !important;
+                            *{color:black !important;}
+                            color:black !important;
+                        }
+                    }
+                }
+                background-color: @mainColor !important;
+                height:250px !important;
+                *{
+                    color:white !important;
+                }
+                .@{userProfileBodyUserInfoSection} {
+                    border:none !important;
+                    .@{userProfileBodyUserInfoSectionConnectedAccounts} {
+                        .@{userProfileBodyUserInfoSectionConnectedAccount} {
+                            & when (@animateAll = true){animation: spawnContainer .2s cubic-bezier(1,0,0,1)};
+                            border:none !important;
+                            border-radius: 0 !important;
+                            background: white !important;
+                            *{
+                                color:black !important;
+                            }
+
+                            .@{userProfileBodyUserInfoSectionConnectedAccountIcon} {
+                                filter:saturate(0) brightness(8) invert(1);
+                            }
+
+                            .@{userProfileBodyUserInfoSectionConnectedAccountVerifiedIcon} {
+                                g {
+                                    display: none !important;
+                                }
+                                background: @mainColor !important;
+                                -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-verified_user-24px.svg) center/17px no-repeat;
+                                
+                            }
+                            .@{userProfileBodyUserInfoSectionConnectedAccountOpenIcon} {
+                                background: white !important;
+                                border-radius: 100%;
+                                width:25px;
+                                height:25px;
+                                transition: background .2s;
+                                position: relative;
+                                &:hover{
+                                    background: @mainColor !important;
+                                    &:after{
+                                        background: white !important;
+                                    }
+                                }
+                                &:after{
+                                    content:'';
+                                    position: absolute;
+                                    left:0;
+                                    top:0;
+                                    width:100%;
+                                    height:100%;
+                                    transition: background .2s;
+                                    background: @mainColor;
+                                    -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-open_in_new-24px.svg) center/15px no-repeat;
+                                }
+                            }
+                        }
+                    }
+                    .@{userProfileBodyUserInfoSectionHeader} {
+                        color:white !important;
+                        padding-bottom:8px !important;
+                        border-bottom:1px solid white !important;
+                    }
+                    .@{userProfileBodyUserInfoSectionNote} {
+                        textarea{
+                            background: transparent !important;
+                            color:white !important;
+                        }
+                    }
+                }
+            }
+        }
+        & when (@userProfilePosition = "right") {
+            position: absolute !important;
+            right:0 !important;
+            top:50% !important;
+            transform: translateY(-50%) !important;
+            animation: slideInRight .3s cubic-bezier(1,0,0,1);
+        }
+        & when (@userProfilePosition = "left") {
+            position: absolute !important;
+            left:0 !important;
+            top:50% !important;
+            transform: translateY(-50%) !important;
+            animation: slideInLeft .3s cubic-bezier(1,0,0,1);
+            .@{userProfileAdditionalActionsIcon} {
+                left:unset !important;
+                right:10px;
+            }
+        }
+        & when (@userProfilePosition = "center") {
+            position: absolute !important;
+            top:50% !important;
+            left:50% !important;
+            transform: translate(-50%,-50%) !important;
+        }
+        & when (@userProfilePosition = "float") {
+            position: absolute !important;
+            top:50% !important;
+            left:50% !important;
+            transform: translate(-50%,-50%) !important;
+            &:after{
+                display: none !important;
+            }
+        }
+        & when (@userProfilePosition = "fullscreen") {
+            position: absolute !important;
+            top:0 !important;
+            left:0 !important;
+            width:100vw !important;
+            height:100vw !important;
+
+            @{userProfileTopSectionAny} {
+                height:50vh !important;
+                .@{userProfileTopSection_Header} {
+                    height:50vh !important;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,469 @@
+// main: ../Stiff.less
+// The guild channel list and private channels
+
+@import "../include.less";
+
+@_lastLoadedModule:"GuildChannels";
+
+// :: Class decleration
+
+@channels:channels-Ie2l6A;
+    @channels_container:container-PNkimc;
+        @positionedContainer:positionedContainer-l-ZqRq;
+            @unreadTop:unreadTop-73gZ2_;
+        @guild_header:flexChild-faoVW3;
+            @guild_header_header:header-2o-2hj;
+                @svgOpen:open-1Te94t;
+        @scrollerWrap:scrollerWrap-2lJEkd;
+            @scroller:scroller-2FKFPG;
+                @containerCategory:containerDefault-3GGEv_;
+                    @containerCategoryFlex:flex-1xMQg5;
+
+                        @wrapperDefault:wrapperDefault-10Jfvz;
+                        @wrapperHovered:wrapperHovered-28fu1D;
+                        @wrapperHoveredCollapsed:wrapperHoveredCollapsed-1PADEo;
+                        @wrapperCollapsed:wrapperCollapsed-3Fbxl6;
+
+                        @containerCategoryName:colorTransition-2-M2tg;
+                @containerChannel:containerDefault-1ZnADq;
+                    @voiceUser:voiceUser-vT8g1p;
+                    @containerChannelInsideWrapperSelected:wrapperSelectedText-3dSUjC;
+                    @actionIcon:actionIcon-2Hi9ZG;
+                    @unread:unread-1Dp-OI;
+                    @channelInnerWrapper:wrapper-KpKNwI;
+                    @listDefault:listDefault-36Sktb;
+                    @wrapperMention:wrapper-232cHJ;
+        @unreadBottom:unreadBottom-3hWQ7c;
+    @accountdetails_container:container-2Thooq;
+        @avatarSmall:avatar-small;
+        @accountdetails_container_button:noWrap-3jynv6; // Doesn't have a propper class
+    @callconnected_container:container-1UB9sr;
+        @callconnected_containerButtons:noWrap-3jynv6;
+            @buttonScreenShare:buttonScreenShare-3zPiSA;
+            @buttonDisconnect:buttonDisconnect-3W_SJc;
+            @buttonInfo:buttonInfo-3nkbOt;
+    @privateChannels:privateChannels-1nO12o;
+        @channelSelected:selected-1HYmZZ;
+        @channelPrivate:channel-2QD9_O;
+            @name:name-2WpE7M;
+            @activity:activity-525YDR;
+            @image:small-5Os1Bb;
+        @searchBar:searchBar-6Kv8R2;
+            @search-bar:searchBar-2_Yu-C;
+                @search-bar-inner:searchBarInner-1_Tg2R;
+
+// ;; Class decleration
+
+
+.@{privateChannels} {
+    .@{searchBar} {
+        height:40px !important;
+        background: white !important;
+        box-shadow: inset 72px 0px 37px -74px rgba(0,0,0,0.3) !important;
+        .@{search-bar}{
+            background: transparent !important;
+            border: none !important;
+            .@{search-bar-inner} {
+                background: transparent !important;
+                border: none !important;
+                position: relative;
+                &:before{
+                    content:'';
+                    width:15px;
+                    height:15px;
+                    background: black;
+                    position: absolute;
+                    left:0;
+                    top:50%;
+                    transform: translateY(-50%);
+                    -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-search-24px.svg) center/contain no-repeat;
+                }
+                input{
+                    color:black !important;
+                    margin-left:15px !important;
+                    font-size:15px !important;
+                    &::-webkit-input-placeholder{
+                        color:black !important;
+                    }
+                }
+            }
+        }
+    }
+    .@{scrollerWrap} {
+        background: lighten(@mainColor,2%) !important;
+        box-shadow: inset 72px 0px 37px -74px darken(@mainColor,4%) !important;
+        header{
+            opacity: 1 !important;
+            padding:0 !important;
+            padding-top:5px !important;
+            padding-bottom:7px !important;
+            padding-left:20px !important;
+            position: relative;
+            
+            &:after{
+                content:'';
+                width:~"calc(100% - 15px)";
+                height:1px;
+                position: absolute;
+                background: rgba(255,255,255,0.6);
+                left:15px;
+                bottom:0;
+            }
+            margin:0 !important;
+            margin-bottom:5px !important;
+        }
+        .@{channelPrivate} {
+            &:nth-child(2),&:nth-child(3),&:nth-child(4),&:nth-child(5){
+                & when (@compactHomeButtons = true){
+                    border-radius: 50% !important;
+                    transition: all .2s;
+                    .@{name}{
+                        display: none !important;
+                    }
+                    margin-left: 15px;
+                    width:40px;
+                    height:40px;
+                    display: inline-block !important;
+                    position: relative;
+                    margin-top:-10px !important;
+                    svg{
+                        position: absolute;
+                        left:50%;
+                        top:50%;
+                        transform: translate(-50%,-50%);
+                        width:25px;
+                        height:25px;
+                    }
+                    svg{
+                        opacity: 1 !important;
+                    }
+                    &:hover,&.@{channelSelected}{
+                        svg{
+                            color:@mainColor !important;
+                        }
+                    }
+                }
+                & when not (@compactHomeButtons = true){
+                    svg{
+                        opacity: 1 !important;
+                    }
+                    &:hover,&.@{channelSelected}{
+                        svg{
+                            color:@mainColor !important;
+                        }
+                    }
+                }
+            }
+
+            & > a {
+                background: transparent !important;
+            }
+            border-radius: 0 !important;
+            background: transparent !important; 
+            svg[name="RichActivity"] path{
+                fill:white !important;
+            }
+            &:hover,&.@{channelSelected}{
+                background: white !important;
+                .@{name},.@{activity} {
+                    color:rgba(0,0,0,0.8) !important;
+                }
+                & > a > .@{image} > div[style='background-image: url("/assets/f046e2247d730629309457e902d5c5b3.svg");']{
+                    background: @mainColor !important;
+                }
+                svg[name="RichActivity"] path{
+                    fill:black !important;
+                }
+            }
+            .@{name},.@{activity} {
+                color:white !important;
+                opacity: 1 !important;
+            }
+            & > a > .@{image} {
+                background: transparent !important;
+                & > div{
+                    &[style='background-image: url("/assets/f046e2247d730629309457e902d5c5b3.svg");']{
+                        -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-group-24px.svg) center/23px no-repeat;
+                        background: white !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes spawnGuildContainer{
+    0%{
+        transform: translateY(-50%);
+        opacity: 0;
+    }
+}
+
+.@{channels}{
+    .@{channels_container} {
+        background: lighten(@mainColor,2%) !important;
+        box-shadow: inset 72px 0px 37px -74px darken(@mainColor,4%) !important;
+        .@{guild_header} {
+            height:40px !important;
+            .@{guild_header_header}{
+                border:none !important;
+                box-shadow:none !important;
+                background: transparent !important;
+                svg {
+                    opacity: 1;
+                    animation-timing-function: cubic-bezier(.17,.67,.27,1.5);
+                    animation-duration: .3s;
+                    transition-duration: .3s;
+                    transition-timing-function: cubic-bezier(.17,.67,.27,1.5);
+                }
+            }
+        }
+        .@{scroller} {
+            *{
+                color:white !important;
+                opacity: 1 !important;
+            }
+            .@{containerChannel} {
+                & when (@animateAll = true){animation: spawnGuildContainer .2s cubic-bezier(1,0,0,1)};
+                .@{unread}{
+                    z-index:200;
+                    background: white !important;
+                    top:0px !important;
+                    width:5px !important;
+                    height:40px !important;
+                    border-radius: 0 !important;
+                }
+                .@{wrapperMention} {
+                    border-radius: 0 !important;
+                }
+                .@{listDefault} {
+                    margin-left:0 !important;
+                    padding-left:0 !important;
+                    padding-right:0 !important;
+                    .@{voiceUser} {
+                        padding-left:28px !important;
+                        &:hover{
+                            background: white;
+                            & > div{
+                                color:black !important;
+                            }
+                            svg,svg *{
+                                fill:@mainColor !important;
+                                color:@mainColor !important;
+                                opacity: 1 !important;
+                            }
+                        }
+                    }
+                }
+                & > div {
+                    & > div{
+                        background: transparent !important;
+                    }
+                    border-radius: 0 !important;
+                    background: transparent !important;
+                    &.@{containerChannelInsideWrapperSelected}, &.@{channelInnerWrapper}:hover{
+                        background: white !important;
+                        .name-3M0b8v{
+                            color:rgba(0,0,0,0.8) !important;
+                        }
+                        .@{actionIcon}{
+                            opacity: 1 !important;
+                        }
+                        svg,svg *{
+                            color:@mainColor !important;
+                            opacity: 1 !important;
+                        }
+                    }
+                    svg,svg *{
+                        color:white !important;
+                        opacity: 1 !important;
+                    }
+                }
+            }
+            .@{containerCategory} {
+                & when (@animateAll = true){animation: spawnGuildContainer .15s cubic-bezier(1,0,0,1)};
+                padding:0 !important;
+                padding-top:5px !important;
+                padding-bottom:7px !important;
+                position: relative;
+                &:after{
+                    content:'';
+                    width:~"calc(100% - 15px)";
+                    height:1px;
+                    position: absolute;
+                    background: rgba(255,255,255,0.6);
+                    left:15px;
+                    bottom:0;
+                }
+                margin:0 !important;
+                margin-bottom:5px !important;
+
+                .@{containerCategoryFlex}{
+                    & > svg{
+                        path{
+                            stroke:transparent !important;
+                        }
+                        transform: none !important;
+                        width:15px;
+                        height:15px;
+                        margin-top:-1px !important;
+                        -webkit-mask: url(https://material.io/tools/icons/static/icons/baseline-chevron_right-24px.svg) center/contain !important;
+                        background: white;
+                        transition: transform .3s cubic-bezier(.17,.67,.27,1.5);
+                    }      
+                    &.@{wrapperDefault} > svg{
+                        transform: rotate(0deg) !important;
+                    }
+                    &.@{wrapperHovered} > svg{
+                        transform: rotate(-90deg) !important;
+                    }
+                    &.@{wrapperHoveredCollapsed} > svg{
+                        transform: rotate(90deg) !important;
+                    }
+                    &.@{wrapperCollapsed} > svg{
+                        transform: rotate(0deg) !important;
+                    }
+                }
+            }
+        }
+    }
+    .@{accountdetails_container} {
+        margin:0 !important;
+        background: lighten(@mainColor,2%) !important;
+        box-shadow: inset 72px 0px 37px -74px darken(@mainColor,4%) !important;
+        .@{avatarSmall} {
+            transform: scale(1.1);
+            opacity: 1 !important;
+        }
+        .@{accountdetails_container_button} {
+            & > button {
+                border-radius: 100%;
+                opacity: 1;
+                position: relative;
+                background: transparent !important;
+                &:hover{
+                    background: white !important;
+                    &:after{
+                        background: @mainColor !important;
+                        transform: rotate(45deg);
+                    }
+                }
+                transition: all .2s;
+                &:after{
+                    content:'';
+                    position: absolute;
+                    left:0;
+                    top:0;
+                    width:100%;
+                    height:100%;
+                    background: white !important;
+                    transition: all .2s;
+                    -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-settings-20px.svg) center/20px no-repeat;
+                }
+                & > div{
+                    display:none !important;
+                }
+            }
+            & > div {
+                & > button {
+                    border-radius: 100%;
+                    opacity: 1;
+                    position: relative;
+                    background: transparent !important;
+                    &:hover{
+                        background: white !important;
+                        &:after{
+                            background: @mainColor !important;
+                        }
+                    }
+                    &:after{
+                        content:'';
+                        position: absolute;
+                        left:0;
+                        top:0;
+                        width:100%;
+                        height:100%;
+                        background: white !important;
+                        transition: all .2s;
+                    }
+                    transition: all .2s;
+                    &[aria-label="Mute"]:after{
+                        -webkit-mask:url("/assets/4bc527c257233fc69b94342d77bcb9ee.svg") center/20px no-repeat;
+                    }
+                    &[aria-label="Unmute"]:after{
+                        -webkit-mask:url("/assets/896770bf2d6ed0358ed0adefdbe96a24.svg") center/20px no-repeat;
+                    }
+                    &[aria-label="Undeafen"]:after{
+                        -webkit-mask:url("/assets/c8845c514bbf3f1e5bea064c1e40b08d.svg") center/20px no-repeat;
+                    }
+                    &[aria-label="Deafen"]:after{
+                        -webkit-mask:url("/assets/c7c47afdf35d5a3e06233319d3aa7674.svg") center/20px no-repeat;
+                    }
+                }
+            }
+        }
+    }
+    .@{callconnected_container} {
+        span{
+            color:white !important;
+        }
+        margin:0 !important;
+        background: lighten(@mainColor,2%) !important;
+        border:none !important;
+        box-shadow: inset 72px 0px 37px -74px darken(@mainColor,4%) !important;
+        .@{callconnected_containerButtons} > .@{buttonInfo} {
+            border-radius: 100%;
+            opacity: 1;
+            position: relative;
+            background: transparent !important;
+            &:hover{
+                background: white !important;
+                &:after{
+                    background: @mainColor !important;
+                }
+            }
+            transition: all .2s;
+            &:after{
+                content:'';
+                position: absolute;
+                left:0;
+                top:0;
+                width:100%;
+                height:100%;
+                background: white !important;
+                transition: all .2s;
+                -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-info-24px.svg) center/20px no-repeat;
+            }
+        }
+        .@{callconnected_containerButtons} > div > div {
+            border-radius: 100%;
+            opacity: 1;
+            position: relative;
+            background: transparent !important;
+            &:hover{
+                background: white !important;
+                &:after{
+                    background: @mainColor !important;
+                }
+            }
+            transition: all .2s;
+            &.@{buttonScreenShare}:after {
+                -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-cast-24px.svg) center/20px no-repeat;
+            }
+            &.@{buttonDisconnect}:after {
+                -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-call_end-24px.svg) center/20px no-repeat;
+            }
+            &:after{
+                content:'';
+                position: absolute;
+                left:0;
+                top:0;
+                width:100%;
+                height:100%;
+                background: white !important;
+                transition: all .2s;
+                -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-info-24px.svg) center/20px no-repeat;
+            }
+        }
+    }
+}

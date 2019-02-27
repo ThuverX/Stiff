@@ -1,0 +1,121 @@
+/*
+ *    ____ _____ ___ _____ _____ 
+ *   / ___|_   _|_ _|  ___|  ___|
+ *   \___ \ | |  | || |_  | |_   
+ *    ___) || |  | ||  _| |  _|  
+ *   |____/ |_| |___|_|   |_|    
+ *
+ * Stiff by ThuverX
+ */
+
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+@import "modules/Winbar.less"; // 100%
+@import "modules/UserProfile.less"; // 95%;
+@import "modules/Code.less"; // 100%
+@import "modules/ActivityPage.less"; // 70%
+@import "modules/Guildbar.less"; // 100%
+@import "modules/MemberList.less"; // 70%
+@import "modules/GuildChannels.less"; // 90%
+
+/* Chat.less is completely screwed needs a rewrite with the following points:
+ * - edit scroll needs to line up better this is making me angry (✓)
+ * - this little tiny one fucking pixel gap http://0x0.st/sGTb.png (✓)
+ * - input box, and appropriate styling needs to be relative (✓)
+ * - top right buttons need to actually chill, the current is not acceptable
+ * - make sure friend chats editable name actually aligns well (✓)
+ * - backgrounds are a thing now, but I don't like the way they scale (✓)
+ * - actually style the editing frame, jeez (✓)
+ */
+
+//@import "modules/Chat.less"; // 80%
+
+@import "modules/Chat2.less"; // 60%
+@import "modules/PrivateChat.less"; // 0%
+
+
+/* After this: Profile popouts:
+ * - Make them wider, to fit the background better
+ *
+ * Then: Friends page,
+ * Then: Activity,
+ * Then: Library,
+ * Plugin settings page:
+ * - DONT update on every fucking change. That was a stupid idea
+ * - Small window display (Stylized representation. Not actual page)
+ *
+ * Then: Store:
+ * - THIS IS A BIG MAYBE
+ *
+ * Don't forget: Create server modal, Context menu, Usersettings, Search menu (Server), Search popout (Quick switcher), UDB page
+ *
+ * AND MOST OF ALL COMMIT YOUR CHANGES OR PEOPLE THINK YOU'RE DEAD
+ */
+
+// Any leftover css
+body{font-family:'Roboto',sans-serif}
+.base-3dtUhz{border-radius:0!important}
+.container-2lgZY8 {background:@mainColor!important}
+
+::-webkit-scrollbar,
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track-piece {
+	background: transparent !important;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
+	border: none !important;
+    width:5px !important;
+}
+::-webkit-scrollbar-thumb {
+	background: white !important;
+	width:5px !important;
+	border:none !important;
+	border-radius: 0px !important;
+}
+
+@statusDiv:status-oxiHuE;
+	@statusDivDnd:dnd-1_xrcq;
+	@statusDivIdle:idle-3DEnRT;
+	@statusDivOnline:online-2S838R;
+	@statusDivInvisible:invisible-1kp8Z0;
+
+.@{statusDiv}{
+	box-shadow:none !important;
+	&.@{statusDivDnd} {
+		border-color:#f04747 !important;
+	}
+	&.@{statusDivIdle} {
+		border-color:#faa61a !important;
+	}
+	&.@{statusDivOnline} {
+		border-color:#43b581 !important;
+	}
+	&.@{statusDivInvisible} {
+		border-color:#747f8d !important;
+	}
+}
+
+// :: Main overrides
+
+@mainColor: #cc716e;
+@userProfilePosition:"right";
+@compactHomeButtons:true;
+@animateAll:true;
+@colorChatInput:true;
+@mainBackground:url(https://images.pexels.com/photos/933054/pexels-photo-933054.jpeg);
+@messageBackgroundOpacity:10%;
+@useFiraCode:true;
+@useLigatures:true;
+@codeBlockStyle:'dracula';
+@codeBlockLines:true;
+
+:root{
+	/* Debug information */
+	
+	--mainColor:@mainColor;
+	--userProfilePosition:@userProfilePosition;
+	--compactHomeButtons:@compactHomeButtons;
+	--lastLoadedModule:@_lastLoadedModule;
+}
