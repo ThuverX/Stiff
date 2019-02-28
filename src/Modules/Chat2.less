@@ -32,13 +32,17 @@
                     @titleAka:aka-1mqp34;
             @titleButtonsWrapper:noWrap-3jynv6; // Doesn't have a propper class
                 @titleButtonsDivider:divider-2PMBlV;
+                @titleQuestionIcon:anchor-3Z-8Bb; // Doesn't have a propper class
                 @titleSearchWrapper:search-l1Wz-Q;
                     @titleSearchWrapperOpen:popout-open;
-                    @titleSearchMain:search;
-                        @titleSearchMainFocused:focused;
-                    @title-search-bar:search-bar;
-                        @title-DraftEditor-root:DraftEditor-root;
-                        @title-search-bar-icon:search-bar-icon;
+                    @titleSearchWrapperScrollerOpen:open-6_Y_aH;
+                    @titleSearchMain:search-2oPWTC;
+                        @titleSearchMainFocused:focused-31_ccS;
+                    @titleSearchBar:searchBar-2_Yu-C;
+                        @titleDraftEditor-root:DraftEditor-root;
+                            @titleDraftEditor-content:public-DraftEditor-content;
+                        @titleSearchBarIcon:searchBarIcon-1J6sKG;
+
     @chat:content-yTz4x3;
         @channelTextArea:channelTextArea-1LDbYG;
             @channelTextAreaOperations:operations-36ENbA;
@@ -387,6 +391,183 @@
         box-shadow:none !important;
         *{
             color:white !important;
+        }
+        .@{titleButtonsWrapper}{
+            top:0 !important;
+            margin:0 !important;
+            height:40px !important;
+            background: lighten(@mainColor,2%);
+            padding-left:30px !important;
+            padding-right:50px !important;
+            width:200px !important;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 20px 100%);
+            .@{titleButtonsDivider}{
+                display: none !important;
+            }
+            & > span,& > .@{titleQuestionIcon}{
+                & > span{
+                    position: absolute;
+                    left:0;
+                    top:0;
+                    height:40px !important;
+                    width:40px !important;
+                    padding:0 !important;
+                    margin:0 !important;
+                }
+                position: relative;
+                height:40px !important;
+                width:40px !important;
+                padding:0 !important;
+                margin:0 !important;
+                cursor: pointer;
+                svg * {
+                    display: none;
+                }
+                &:after{
+                    content:'';
+                    position: absolute;
+                    left:50%;
+                    top:50%;
+                    width:31px;
+                    height:31px;
+                    transform: translate(-50%,-50%);
+                    background: transparent;
+                    border-radius: 100%;
+                    transition: background .2s;
+                }
+                &:hover{
+                    &:after{
+                        background: white;
+                    }
+                    svg{
+                        z-index:3;
+                        background: @mainColor !important;
+                    }
+                }
+                svg{
+                    transition: background .2s;
+                    position: relative;
+                    background: white;
+                    opacity: 1;
+                    width:100%;
+                    height:100%;
+                    &[name="NotificationBell"]{
+                        -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-notifications-24px.svg) center/25px no-repeat !important;
+                    }
+                    &[name="NotificationBellOff"]{
+                        -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-notifications_off-24px.svg) center/25px no-repeat !important;
+                    }
+                    &[name="People"]{
+                        -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-group-24px.svg) center/25px no-repeat !important;
+                    }
+                    &[name="Pin"]{
+                        -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-star-24px.svg) center/25px no-repeat !important;
+                    }
+                    &[name="Mention"]{
+                        -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-alternate_email-24px.svg) center/25px no-repeat !important;
+                    }
+                    &[name="QuestionMark"]{
+                        -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-help-24px.svg) center/25px no-repeat !important;
+                    }
+                }
+            }
+            .@{titleSearchWrapper}{
+                position: absolute;
+                top:0;
+                right:10px;
+                padding:0 !important;
+                margin:0 !important;
+                height:40px;
+                width:40px;
+                z-index:40;
+                &:after{
+                    content:'';
+                    position: absolute;
+                    right:4.5px;
+                    top:4.5px;
+                    width:31px;
+                    height:31px;
+                    background: transparent;
+                    border-radius: 100%;
+                    transition: all .4s;
+                    z-index:2;
+                }
+                &:hover{
+                    cursor: pointer;
+                    &:after{
+                        background: white;
+                    }
+                    &:before{
+                        background: @mainColor;
+                    }
+                }
+                &:before{
+                    content:'';
+                    position: absolute;
+                    left:0;
+                    top:0;
+                    width:40px;
+                    height:40px;
+                    background: white;
+                    border-radius: 100%;
+                    transition: all .4s;
+                    z-index:3;
+                    -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-search-24px.svg) center/25px no-repeat !important;
+                }
+                &.@{titleSearchWrapperOpen} {
+                    right:0;
+                    width:290px;
+                    &:after{
+                        position: absolute;
+                        top:0;
+                        right:0;
+                        width:100%;
+                        height:100%;
+                        background: white;
+                        border-radius: 0px;
+                    }
+                    &:before{
+                        position: absolute;
+                        top:0;
+                        left:25px;
+                        background: black;
+                    }
+                    color:black !important;
+                    span{
+                        color:black !important;
+                    }
+                }
+                color:transparent !important;
+                transition: color .4s;
+                span{
+                    color:transparent !important;
+                    transition: color .4s;
+                }
+                *{
+                    background: transparent;
+                }
+                .@{titleSearchMain}{
+                    .@{titleSearchBarIcon}{
+                        display: none !important;
+                    }
+                    .@{titleDraftEditor-root} {
+                        overflow: hidden;
+                        margin:0 !important;
+                        padding:0 !important;
+                        position: absolute;
+                        left:65px;
+                        height:40px;
+                        line-height:42px;
+                        top:0;
+                        width:180px !important;
+                        .@{titleDraftEditor-content} {
+                            overflow: hidden;
+                            margin:0 !important;
+                            padding:0 !important;
+                        }
+                    }
+                }
+            }
         }
         .@{titleWrapperTitle}{
             display: flex !important;

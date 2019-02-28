@@ -224,6 +224,9 @@
                 opacity: 1 !important;
             }
             .@{containerChannel} {
+                *{
+                    box-shadow:none !important;
+                }
                 & when (@animateAll = true){animation: spawnGuildContainer .2s cubic-bezier(1,0,0,1)};
                 .@{unread}{
                     z-index:200;

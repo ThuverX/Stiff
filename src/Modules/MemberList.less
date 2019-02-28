@@ -46,32 +46,6 @@
     position: relative;
 }
 
-.memberListVisibility(){
-    span{
-        overflow: visible !important;
-    }
-    //.memberListVisibilityColorLoop(255,@mainColor);
-}
-
-.memberListVisibilityColorLoop(@i,@color) when (@i > 0){
-    @r:red(@color) - @i;
-    @g:green(@color);
-    @b:blue(@color);
-    &[style="color: rgb(@{r},@{g},@{b});"]{
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
-        background: red;
-    }
-    &[style="color: rgb(@{r},@{g},@{b});"]{
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
-        background: red;
-    }
-    &[style="color: rgb(@{r},@{g},@{b});"]{
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
-        background: red;
-    }
-    .memberListVisibilityColorLoop(@i - 1,@color)
-}
-
 .@{memberListWrapper}{
     padding-top:50px !important;
     background:lighten(@mainColor,2%) !important;
@@ -110,7 +84,7 @@
             padding-bottom:10px !important;
             margin:0 !important;
             .@{memberNameTag}{
-                .memberListVisibility()
+                
             }
             .@{memberActivityText}{
                 color:white !important;
