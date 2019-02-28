@@ -399,10 +399,63 @@
             background: lighten(@mainColor,2%);
             padding-left:30px !important;
             padding-right:50px !important;
-            width:200px !important;
+            width:300px !important;
             clip-path: polygon(0 0, 100% 0, 100% 100%, 20px 100%);
             .@{titleButtonsDivider}{
                 display: none !important;
+            }
+            & > div {
+                & > span{
+                    position: relative;
+                    display: inline-block;
+                    left:0;
+                    top:0;
+                    height:40px !important;
+                    width:40px !important;
+                    padding:0 !important;
+                    margin:0 !important;
+                    svg * {
+                        display: none;
+                    }
+                    cursor: pointer;
+                    &:after{
+                        content:'';
+                        position: absolute;
+                        left:50%;
+                        top:50%;
+                        width:31px;
+                        height:31px;
+                        transform: translate(-50%,-50%);
+                        background: transparent;
+                        border-radius: 100%;
+                        transition: background .2s;
+                    }
+                    &:hover{
+                        &:after{
+                            background: white;
+                        }
+                        svg{
+                            z-index:3;
+                            background: @mainColor !important;
+                        }
+                    }
+                    svg{
+                        transition: background .2s;
+                        position: relative;
+                        background: white;
+                        opacity: 1;
+                        width:100%;
+                        height:100%;
+                        &[name="VideoCamera"]{
+                            -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-video_call-24px.svg) center/25px no-repeat !important;
+                        }
+                        &[name="Phone"]{
+                            -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-call-24px.svg) center/25px no-repeat !important;
+                        }
+                    }
+                }
+                padding:0 !important;
+                margin:0 !important;
             }
             & > span,& > .@{titleQuestionIcon}{
                 & > span{
@@ -469,6 +522,9 @@
                     &[name="QuestionMark"]{
                         -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-help-24px.svg) center/25px no-repeat !important;
                     }
+                    &[name="PersonPlus"]{
+                        -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-person_add-24px.svg) center/25px no-repeat !important;
+                    }
                 }
             }
             .@{titleSearchWrapper}{
@@ -489,7 +545,7 @@
                     height:31px;
                     background: transparent;
                     border-radius: 100%;
-                    transition: all .4s;
+                    transition: all .3s;
                     z-index:2;
                 }
                 &:hover{
@@ -510,13 +566,14 @@
                     height:40px;
                     background: white;
                     border-radius: 100%;
-                    transition: all .4s;
+                    transition: all .3s;
                     z-index:3;
                     -webkit-mask:url(https://material.io/tools/icons/static/icons/baseline-search-24px.svg) center/25px no-repeat !important;
                 }
                 &.@{titleSearchWrapperOpen} {
+                    cursor: text !important;
                     right:0;
-                    width:290px;
+                    width:390px;
                     &:after{
                         position: absolute;
                         top:0;
@@ -536,17 +593,20 @@
                     span{
                         color:black !important;
                     }
+                    .@{titleSearchMain}{
+                        opacity: 1;
+                    }
                 }
                 color:transparent !important;
-                transition: color .4s;
                 span{
                     color:transparent !important;
-                    transition: color .4s;
                 }
                 *{
                     background: transparent;
                 }
                 .@{titleSearchMain}{
+                    opacity: 0;
+                    transition: opacity .5s;
                     .@{titleSearchBarIcon}{
                         display: none !important;
                     }
