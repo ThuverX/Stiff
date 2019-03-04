@@ -15,7 +15,7 @@ if(powercord) {
 
     async _reloadLess(){
 
-      const mainPath = `D:/Google Drive/Projects/DI Styles/Stiff/`
+      const mainPath = __dirname
 
       let css = (await readFile(mainPath + "/src/Stiff.less")).toString()
       css = css.replace(/\@import \"modules/g,`@import "${mainPath}/src/modules`)
