@@ -13,11 +13,10 @@
 
 @import "modules/Winbar.less"; // 100%
 @import "modules/UserProfile.less"; // 95%;
-/* Needs a custom version for Powercord */
-//@import "modules/Code.less"; // 100%
+@import "modules/Code.less"; // 100%
 /* Changed in canary update */
-//@import "modules/ActivityPage.less"; // 70%
-@import "modules/Guildbar.less"; // 100%
+@import "modules/ActivityPage.less"; // 70%
+
 @import "modules/MemberList.less"; // 70%
 @import "modules/GuildChannels.less"; // 90%
 
@@ -33,7 +32,7 @@
 
 @import "modules/Chat2.less"; // 70%
 @import "modules/PrivateChat.less"; // 0%
-
+@import "modules/Guildbar.less"; // 100%
 // Fix Powercord bugs
 
 /* After this: Profile popouts:
@@ -126,4 +125,6 @@ body{font-family:'Roboto',sans-serif}
 	--codeBlockStyle:@codeBlockStyle;
 	--codeBlockLines:@codeBlockLines;
 	--lastLoadedModule:@_lastLoadedModule;
+	--injector:@injector;
+	--discordVersion:@discordVersion;
 }

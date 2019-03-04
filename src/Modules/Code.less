@@ -20,7 +20,7 @@ pre,code{
 		padding:3px !important;
 		background: #2c3643 !important;
 	}
-	&.hljs:before{
+	&.hljs:before when not (@injector = "PowerCord"){
 		height:20px;
 		width:100%;
 		overflow: hidden !important;
@@ -37,7 +37,7 @@ pre,code{
 	}
 	position: relative;
 	overflow-y: hidden;
-	&.hljs:after{
+	&.hljs:after when not (@injector = "PowerCord"){
 		line-height: 20px !important;
 		overflow: hidden !important;
 		float:left;
@@ -57,8 +57,12 @@ pre,code{
 	margin-left:6px !important;
 	margin:0px !important;
 	line-height: 20px !important;
+	.powercord-lines:after{
+		line-height: 20px !important;
+		bottom:0 !important;
+	}
 	& when (@codeBlockStyle = 'default'){
-		&.hljs:before{
+		&.hljs:before,.powercord-codeblock-lang{
 			background: darken(#2f3136,2%);
 		}
 	}
@@ -69,13 +73,13 @@ pre,code{
 			}
 			background: #2c3643;
 		}
-		&.hljs:before{
+		&.hljs:before,.powercord-codeblock-lang{
 			background: darken(#2c3643,10%);
 		}
 	}
 
 	& when(@codeBlockStyle = 'vscode'){
-		&.hljs:before{
+		&.hljs:before,.powercord-codeblock-lang{
 			background: darken(white,50%);
 		}
 		/*
@@ -156,7 +160,7 @@ pre,code{
 		*/
 
 
-		&.hljs:before{
+		&.hljs:before,.powercord-codeblock-lang{
 			background: darken(#282b2e,3%);
 		}
 
@@ -250,7 +254,7 @@ pre,code{
 		Style with support for rainbow parens
 		*/
 
-		&.hljs:before{
+		&.hljs:before,.powercord-codeblock-lang{
 			background: darken(#474949,3%);
 		}
 
@@ -356,7 +360,7 @@ pre,code{
 		hue-6-2: #e6c07b
 		*/
 
-		&.hljs:before{
+		&.hljs:before,.powercord-codeblock-lang{
 			background: darken(#282c34,3%);
 		}
 
@@ -452,7 +456,7 @@ pre,code{
 		@author Zeno Rocha <hi@zenorocha.com>
 		*/
 
-		&.hljs:before{
+		&.hljs:before,.powercord-codeblock-lang{
 			background: darken(#282a36,3%);
 		}
 
@@ -522,7 +526,7 @@ pre,code{
 		Monokai style - ported by Luigi Maselli - http://grigio.org
 		*/
 
-		&.hljs:before{
+		&.hljs:before,.powercord-codeblock-lang{
 			background: darken(#272822,3%);
 		}
 
@@ -613,6 +617,6 @@ pre,code{
 		}
 	}
 }
-code{
+code when not (@injector = "PowerCord"){
 	padding-left:40px !important;
 }
