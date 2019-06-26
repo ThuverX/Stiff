@@ -26,8 +26,9 @@
 
                         @containerCategoryName:colorTransition-2-M2tg;
                 @containerChannel:containerDefault-1ZnADq;
+                    @containerChannelName:name-3_Dsmg;
                     @voiceUser:voiceUser-vT8g1p;
-                    @containerChannelInsideWrapperSelected:wrapperSelectedText-3dSUjC;
+                    @containerChannelSelected:selected-37j_iU;
                     @actionIcon:actionIcon-2Hi9ZG;
                     @unread:unread-1Dp-OI;
                     @channelInnerWrapper:wrapper-KpKNwI;
@@ -43,14 +44,15 @@
             @buttonDisconnect:buttonDisconnect-3W_SJc;
             @buttonInfo:buttonInfo-3nkbOt;
     @privateChannels:privateChannels-1nO12o;
+        @scrollerWrapPrivate:scrollerWrap-2lJEkd;
         @channelSelected:selected-1HYmZZ;
         @channelPrivate:channel-2QD9_O;
             @name:name-2WpE7M;
             @activity:activity-525YDR;
             @image:small-5Os1Bb;
         @searchBar:searchBar-6Kv8R2;
-            @search-bar:searchBar-2_Yu-C;
-                @search-bar-inner:searchBarInner-1_Tg2R;
+            @search-bar:searchBarComponent-32dTOx;
+                @search-bar-inner:inner-3ErfOT;
 
 // ;; Class decleration
 
@@ -89,7 +91,7 @@
             }
         }
     }
-    .@{scrollerWrap} {
+    .@{scrollerWrapPrivate} {
         background: lighten(@mainColor,2%) !important;
         box-shadow: inset 72px 0px 37px -74px darken(@mainColor,4%) !important;
         header{
@@ -133,9 +135,8 @@
                         transform: translate(-50%,-50%);
                         width:25px;
                         height:25px;
-                    }
-                    svg{
                         opacity: 1 !important;
+                        color:white !important;
                     }
                     &:hover,&.@{channelSelected}{
                         svg{
@@ -258,13 +259,30 @@
                         }
                     }
                 }
+                &:hover > div,&.@{containerChannelSelected} > div{
+                    background: white !important;
+                    .@{containerChannelName}{
+                        color:rgba(0,0,0,0.8) !important;
+                    }
+                    .@{actionIcon}{
+                        opacity: 1 !important;
+                    }
+                    svg,svg *{
+                        color:@mainColor !important;
+                        opacity: 1 !important;
+                    }
+                }
+                svg,svg *{
+                    color:white !important;
+                    opacity: 1 !important;
+                }
                 & > div {
                     & > div{
                         background: transparent !important;
                     }
                     border-radius: 0 !important;
                     background: transparent !important;
-                    &.@{containerChannelInsideWrapperSelected}, &.@{channelInnerWrapper}:hover{
+                    &.@{channelInnerWrapper}:hover{
                         background: white !important;
                         .name-3M0b8v{
                             color:rgba(0,0,0,0.8) !important;
@@ -344,7 +362,7 @@
                 opacity: 1;
                 position: relative;
                 background: transparent !important;
-                &:hover{
+                &[aria-label="User Settings"]:hover{
                     background: white !important;
                     &:after{
                         background: @mainColor !important;
@@ -367,13 +385,16 @@
                     display:none !important;
                 }
             }
-            & > div {
+            & {
                 & > button {
                     border-radius: 100%;
                     opacity: 1;
                     position: relative;
                     background: transparent !important;
-                    &:hover{
+                    &[aria-label="Mute"]:hover,
+                    &[aria-label="Unmute"]:hover,
+                    &[aria-label="Undeafen"]:hover,
+                    &[aria-label="Deafen"]:hover{
                         background: white !important;
                         &:after{
                             background: @mainColor !important;
